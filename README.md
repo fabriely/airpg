@@ -41,11 +41,36 @@ Abra outro terminal e navegue até a pasta `server`:
 ```bash
 cd server
 ````
-Sincronize o banco de dados e inicie o servidor utilizando o uvicorn e o arquivo main.py:
+Sincronize o banco de dados e a máquina virtual:
 ```bash
 uv sync
+````
+
+Caso seja sua primeira vez, se não for pode pular para o próximo passo: 
+ - No terminal
+   ```bash
+   cd .venv 
+   ````
+   ```bash
+   cd Scprits
+   ````
+   ```bash
+   .\activate
+   ````
+- Logo após de ativar, volte para o server
+  ```bash
+   cd ../../ 
+   ````
+- No server:
+  ```bash
+   .\.venv\Scripts\activate.bat
+   ````
+Inicie o servidor utilizando o arquivo main.py:
+```bash
 fastapi dev main.py
 ````
+
+
 O backend estará disponível em http://localhost:8000
 
 
