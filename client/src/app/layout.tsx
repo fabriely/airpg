@@ -17,6 +17,12 @@ export default function RootLayout({
   return (
     <NextAuthSessionProvider>
     <html>
+      <head>
+      <link
+          href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=Grenze+Gotisch:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>{children}</body>
     </html>
     </NextAuthSessionProvider>
