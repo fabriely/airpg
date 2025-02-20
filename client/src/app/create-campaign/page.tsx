@@ -38,7 +38,7 @@ export default function createCampaign() {
       ];
 
     return (
-    <div className="min-h-screen flex justify-center items-center gap-2 bg-[#f2f2f2]">
+    <div className="min-h-screen flex justify-center items-start gap-2 bg-[#f2f2f2]">
         <Card className=" flex-1 w-full max-w-xl border-0 bg-[#f2f2f2]">
 
             <CardHeader>
@@ -115,7 +115,7 @@ export default function createCampaign() {
         </Card>
 
         
-         <Card className="flex-1 w-full max-w-2xl border-0">
+         <Card className="flex-1 w-full max-w-2xl border-0 mt-20">
          {showSystems && (
             <div className="bg-red-800 p-8 rounded-lg">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
