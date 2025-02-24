@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { CampaignPanel } from 'components/ui/campaign-panel';
 import { Textarea } from 'components/ui/textarea';
@@ -53,11 +54,17 @@ export const ChatBot = () => {
           onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
         />
 
-        <Button onClick={handleSendMessage}>
-          Enviar
-        </Button>
-
-        
+          <Button 
+            onClick={handleSendMessage}
+            className="rounded-full w-12 h-12 p-0 flex "
+            >
+            <Image
+              src="/icons/send-icon.svg" 
+              alt="Enviar mensagem"
+              width={24}
+              height={24}
+            />
+          </Button>
       </div>
 
     </CampaignPanel>
