@@ -54,7 +54,7 @@ export default function Login() {
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (isFormValid()) {
       alert('Cadastro realizado com sucesso!');
@@ -64,7 +64,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-1 flex-col h-full justify-around items-center bg-white text-black">
-      <Card className="w-full max-w-sm bg-white">
+      <Card className="w-full max-w-sm bg-white  shadow-2xl">
         <CardHeader className='text-center'>
           <CardTitle className="text-2xl text-black font-bold">Cadastro</CardTitle>
           <CardDescription>Insira seus dados abaixo para se cadastrar</CardDescription>
@@ -74,7 +74,7 @@ export default function Login() {
             <div className="grid gap-2">
               <Label className='font-bold' htmlFor="email">Email</Label>
               <Input 
-                className='bg-gray-200 text-black'
+                className='bg-[#e3e3e3] text-black'
                 id="email"
                 type="email"
                 placeholder="exemplo@email.com"
@@ -88,7 +88,7 @@ export default function Login() {
               <Input 
                 id="password" 
                 type="password" 
-                className='bg-gray-200' 
+                className='bg-[#e3e3e3]' 
                 required
                 placeholder="Digite sua senha"
                 value={password}
@@ -100,7 +100,7 @@ export default function Login() {
               <Input 
                 id="password2" 
                 type="password" 
-                className='bg-gray-200' 
+                className='bg-[#e3e3e3]' 
                 required
                 placeholder="Confirme sua senha"
                 value={password2}
@@ -108,7 +108,7 @@ export default function Login() {
               />
             </div>   
             {errorMessage && (
-              <div className="text-red-500 text-sm">{errorMessage}</div>
+              <div className="text-red-500 text-xs text-center">{errorMessage}</div>
             )}       
             <div className="grid grid-cols-2 gap-2">
               <div>
@@ -116,27 +116,27 @@ export default function Login() {
                 <Input 
                   id="verification" 
                   type="text" 
-                  className='bg-gray-200' 
+                  className='bg-[#e3e3e3]' 
                   required 
                   placeholder="Insira o código"
                   value={verificationCode}
                   onChange={(e) => setVerificationCode(e.target.value)}
                 />
               </div>
-              <div>
-                <Button id="verificationButton" className="w-full h-full">Enviar</Button>
+              <div className='flex items-end'>
+                <Button id="verificationButton" className="w-full h-[41px] rounded-[8px]">Enviar</Button>
               </div>
             </div>                    
-            <div className="grid gap-2 text-green-500 text-center">
-              <a className="w-full">Clique em "Enviar" para receber o código por email</a>
+            <div className="grid gap-2 text-[#70b055] text-center">
+              <a className="w-full text-xs">Clique em "Enviar" para receber o código por email</a>
             </div>
             <CardFooter>
               <Button 
                 type="submit" 
-                className={`w-full bg-red-500 ${isFormValid() ? '' : 'opacity-50 cursor-not-allowed'}`}
+                className={`w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919] ${isFormValid() ? '' : 'opacity-50 cursor-not-allowed'}`}
                 disabled={!isFormValid()}
               >
-                Cadastrar
+                Cadastrar-se
               </Button>
             </CardFooter>
           </form>
