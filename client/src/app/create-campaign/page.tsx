@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
+import { ArrowRight } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -79,7 +80,7 @@ export default function CreateCampaign() {
         <div className="min-h-screen flex justify-center items-start gap-4 bg-[#f2f2f2] p-4 md:p-8">
             <Card className="flex-1 w-full max-w-xl border-0 bg-[#f2f2f2]">
                 <CardHeader>
-                    <CardTitle className="text-2xl text-black">Criação de Campanha</CardTitle>
+                    <CardTitle className="text-5xl text-black font-grenze">// Criação de Campanha</CardTitle>
                 </CardHeader>
                 <CardContent className="grid gap-4">
                     <div className="border-4 border-orange-500 relative w-full aspect-video overflow-hidden rounded">
@@ -93,37 +94,37 @@ export default function CreateCampaign() {
                         />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="name" className="text-black">Nome da Campanha</Label>
+                        <Label htmlFor="name" className="text-black font-crimson text-xl font-bold">Nome da Campanha</Label>
                         <Input
                             id="campaignName"
                             placeholder="The Rise of Tiamat"
                             value={campaignName}
                             onChange={(e) => setCampaignName(e.target.value)}
-                            className="h-9 rounded-md text-sm font-medium transition-colors"
+                            className="h-9 rounded-md text-base font-medium transition-colors font-crimson"
                             required
                         />
                     </div>
 
-                    <Button onClick={() => setShowSystems(prev => !prev)} type="button" className="w-full flex justify-between items-center">
+                    <Button onClick={() => setShowSystems(prev => !prev)} type="button" className="w-full flex justify-between items-center text-xl">
                         <span>Selecionar Sistema de RPG</span>
-                        <span className="ml-2">→</span>
+                        <ArrowRight size={20} />
                     </Button>
 
                     <div className="grid gap-2 bg-[#f2f2f2]">
-                        <Label htmlFor="description" className="text-black">Sinopse da Campanha</Label>
+                        <Label htmlFor="description" className="text-black font-crimson font-bold text-xl">Sinopse da Campanha</Label>
                         <Textarea
                             id="campaignDescription"
                             placeholder="Um novo perigo está surgindo em Forgotten Realms"
                             value={campaignDescription}
                             onChange={(e) => setCampaignDescription(e.target.value)}
                             required
-                            className="h-24 rounded-md text-sm font-medium transition-colors"
+                            className="h-24 rounded-md text-base font-medium transition-colors font-crimson"
                         />
                     </div>
                 </CardContent>
 
                 <CardFooter>
-                    <Button variant="destructive" type="submit" onClick={handleSubmit} className="mx-auto w-fit px-8 color-red">Criar Campanha</Button>
+                    <Button variant="destructive" type="submit" onClick={handleSubmit} className="mx-auto w-fit px-8">Criar Campanha</Button>
                 </CardFooter>
             </Card>
 
