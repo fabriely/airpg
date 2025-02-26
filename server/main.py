@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import ValidationError
 from sqlalchemy import create_engine
 from models import Base
-from routes import users
+from routes import users, campaigns
 
 DATABASE_URL = "sqlite:///./test.db"
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
@@ -24,6 +24,7 @@ app.add_middleware(
 
 # Include Routers
 app.include_router(users.router)
+app.include_router(campaigns.router)
 
 @app.get("/")
 async def read_root():

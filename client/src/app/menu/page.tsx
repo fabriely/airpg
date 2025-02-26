@@ -1,16 +1,16 @@
 'use client';
 
-import React, { useState } from "react";
+import React from "react";
 import { Header } from "components/index";
 import { Maincard } from "components/index"
-import { Label } from "@radix-ui/react-label";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { Card, CardContent } from 'components/ui/card';
-import { Button } from 'components/ui/button';
+import { useRouter } from "next/navigation";
+import { Card } from 'components/ui/card';
 
 export default function Menu() {
   const session = useSession();
+  const router = useRouter();
 
   if (session.status === 'authenticated') {
     redirect('/menu')
@@ -30,8 +30,8 @@ export default function Menu() {
         <Maincard className="col-span-1 col-start-3"/>
         <Card className="flex justify-center items-center w-full h-full bg-[#E3E3E3] shadow-lg relative col-span-1 col-start-4 rounded-2xl">
           <div className="flex flex-col justify-between items-center w-full h-full px-4 py-4 gap-4">
-            <button className="w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]"> Entrar Em Uma Campanha </button>  
-            <button className="w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]"> Criar Uma Nova Campanha</button>  
+            <button     className="w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]"> Entrar Em Uma Campanha </button>  
+            <button onClick={() => router.push('/create-campaign')} className="w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]"> Criar Uma Nova Campanha</button>  
           </div>
         </Card>
       </div>

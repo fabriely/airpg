@@ -10,7 +10,17 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "users"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
-    name = Column(String) 
-    last_name = Column(String)  
+    name_user = Column(String) 
     email = Column(String, unique=True, index=True)
     password = Column(String)
+    campaigns = relationship("Campaign", back_populates="user")
+
+class Campaign(Base):
+    __tablename__ = "campaigns"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    name = Column(String)
+    system_rpg = Column(String)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    user = relationship("User", back_populates="campaigns")
+    description = Column(String)
+    code = Column(String, unique=True, index=True)  # Add a unique code for the campaign
