@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
   :root {
     --font-grenze-gotisch: "Grenze Gotisch", sans-serif;
