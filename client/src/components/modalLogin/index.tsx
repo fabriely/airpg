@@ -1,5 +1,7 @@
 'use client';
 import { FC, useState } from 'react';
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { Button } from 'components/ui/button';
 import {
   Card,
@@ -20,23 +22,41 @@ interface ModalLoginProps {
 
 const ModalLogin: FC<ModalLoginProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null; // Se não estiver aberto, não renderiza o modal
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     
     const handleSubmit = async(e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        
+        if (!email || !password) {
+            setError('Por favor, preencha todos os campos.');
+            return;
+        }
         const emailValidation = await validateEmail(email);
         if (!emailValidation.success) { 
             setError(emailValidation.message);
             return;
         }
 
-        else if (!email || !password) {
-            setError('Por favor, preencha todos os campos.');
-            return;
+        if (emailValidation.success) {
+          const result = await signIn("credentials", {
+            redirect: false,
+            email: email,
+            password: password,
+            username: "",
+          });
+        
+        
+        if (result?.error) {
+          console.error("Falha no login:", result.error);
+          setError("Email ou senha incorretos.");
+        } else {
+          router.replace("/menu");
+          onClose();
         }
-        // TODO: Implementar lógica de login
+      };
     };
 
   return (

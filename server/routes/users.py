@@ -10,7 +10,7 @@ router = APIRouter()
 
 @router.post("/users/")
 async def create_user(request: schema.UserCreate, db: Session = Depends(dependencies.get_db)):
-    user = crud.create_user(db=db, name_user=request.name_user, email=request.email, password=request.password)
+    user = crud.create_user(db=db, username=request.username, email=request.email, password=request.password)
     return {"data": {"user": user}}
 
 @router.post("/sessions")

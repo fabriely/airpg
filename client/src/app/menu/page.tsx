@@ -13,8 +13,8 @@ export default function Menu() {
   const session = useSession();
   const router = useRouter();
 
-  if (session.status === 'authenticated') {
-    redirect('/menu')
+  if (session.status === 'unauthenticated') {
+    redirect('/')
   }
   const [isOpen, setIsOpen] = useState(false);  // Estado que controla a visibilidade do modal
   const [code, setCode] = useState('');
