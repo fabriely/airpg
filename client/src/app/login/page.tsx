@@ -24,7 +24,7 @@ export default function Login() {
     <div className="flex flex-1 flex-col h-full justify-around items-center">
       <Card className="w-full max-w-sm h-1/2 px-4 py-6">
         <CardHeader>
-          <CardTitle className="font-skranji text-3xl flex justify-center">Login</CardTitle>
+          <CardTitle className="font-crimson text-3xl flex justify-center">Login</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-8 pt-6">
           <div className="grid gap-2">

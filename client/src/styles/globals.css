@@ -1,11 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '@fontsource/skranji/index.css';
-@import '@fontsource/crimson-text/index.css';
-
-
-
 
 
 @layer base {
