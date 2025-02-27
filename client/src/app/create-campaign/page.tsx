@@ -7,7 +7,7 @@ import { Label } from 'components/ui/label';
 import { ArrowRight } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, redirect } from 'next/navigation';
 import {
     Card,
     CardContent,
@@ -17,16 +17,12 @@ import {
 } from 'components/ui/card';
 import { Textarea } from 'components/ui/textarea';
 import api from 'services/api';
-import { Router } from 'lucide-react';
 
 export default function CreateCampaign() {
-    // Descomentar quando a parte de login estiver ok
-    /*
     const session = useSession();
     if (session.status === 'unauthenticated') {
-      redirect('/login');
+      redirect('/');
     }
-    */
     const router = useRouter();
     const [showSystems, setShowSystems] = useState(false);
     const [selectedSystem, setSelectedSystem] = useState<string | null | number>(null);
@@ -50,13 +46,12 @@ export default function CreateCampaign() {
         }
         try {
             // Enviar dados para o backend
-            console.log(campaignName, selectedSystem, campaignDescription);
             const selectedSystemName = systems.find(system => system.id === selectedSystem)?.name;
-            const response = await api.post('/newcampaign', {
+            const response = await api.post('/newcampaign/', {
                 name: campaignName,
                 system_rpg: selectedSystemName,
                 description: campaignDescription,
-                user_email: "djco@cin.ufpe.br"
+                user_email: session.data?.user?.email
             });
             if (response.status === 200) {
                 const data = response.data;
