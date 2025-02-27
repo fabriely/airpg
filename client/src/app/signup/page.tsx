@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Button } from 'components/ui/button';
 import {
@@ -18,6 +18,7 @@ import  api  from 'services/api';
 import { verifyExistingEmail } from 'services/verifyExistingEmail';
 
 export default function Login() {
+  const router = useRouter();
   const session = useSession();
   const [nameUser, setNameUser] = useState('');
   const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
 
   if (session.status === 'authenticated') {
-    redirect('/');
+    router.replace('/');
   }
 
   const validatePassword = () => {
@@ -84,7 +85,7 @@ export default function Login() {
 
         if (response.status === 200) {
             alert('Cadastro realizado com sucesso!');
-            redirect('/menu');
+            router.replace('/menu');
         }
     } catch (error) {
         setErrorMessage("Um erro inesperado ocorreu. Por favor, tente novamente.");
