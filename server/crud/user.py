@@ -5,13 +5,13 @@ from models import User
 from sqlalchemy.orm import Session
 
 
-def create_user(db: Session, name_user: str, email: str, password: str):
+def create_user(db: Session, username: str, email: str, password: str):
     # Gerando o salt e o hash da senha
     hashed_password = hashpw(password.encode('utf-8'), gensalt())
   
     # Criando o usuário com todas as informações obrigatórias
     user = User(
-      name_user = name_user,
+      username = username,
       email = email,
       password = hashed_password.decode('utf-8')
     )

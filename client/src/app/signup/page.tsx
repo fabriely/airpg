@@ -20,7 +20,7 @@ import { verifyExistingEmail } from 'services/verifyExistingEmail';
 export default function Login() {
   const router = useRouter();
   const session = useSession();
-  const [nameUser, setNameUser] = useState('');
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
@@ -78,20 +78,19 @@ export default function Login() {
     if (isFormValid()) {
       try {
         const response = await api.post("/users/", {
-            name_user: nameUser,
+            username: userName,
             email,
             password,
         });
 
         if (response.status === 200) {
-            alert('Cadastro realizado com sucesso!');
-            router.replace('/menu');
+            alert('Cadastro realizado com sucesso! Faça Login para continuar.');
+            router.replace('/');
         }
     } catch (error) {
         setErrorMessage("Um erro inesperado ocorreu. Por favor, tente novamente.");
         console.error(error);
     }
-      alert('Cadastro realizado com sucesso!');
     }
   };
 
@@ -112,8 +111,8 @@ export default function Login() {
                 id="nameUser"
                 type="string"
                 placeholder="Digite seu nome"
-                value={nameUser}
-                onChange={(e) => setNameUser(e.target.value)}
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
                 required
               />
             </div>
