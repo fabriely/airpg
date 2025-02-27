@@ -14,9 +14,12 @@ import {
 } from 'components/ui/card';
 import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
+import  api  from 'services/api';
+import { verifyExistingEmail } from 'services/verifyExistingEmail';
 
 export default function Login() {
   const session = useSession();
+  const [nameUser, setNameUser] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
@@ -54,13 +57,43 @@ export default function Login() {
     );
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleEmailVerification = async () => {
+    const emailVerification = await verifyExistingEmail(email);
+    if (!emailVerification.success) {
+      setErrorMessage(emailVerification.message); // Exibe a mensagem de erro
+      return false; // Impede o envio do formulário
+    }
+    return true; // Se a verificação passar, retorna true
+  };
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+
+    const isEmailValid = await handleEmailVerification();
+    if (!isEmailValid) {
+      return; // Se a verificação falhar, o formulário não é enviado
+  }
+
     if (isFormValid()) {
+      try {
+        const response = await api.post("/users/", {
+            name_user: nameUser,
+            email,
+            password,
+        });
+
+        if (response.status === 200) {
+            alert('Cadastro realizado com sucesso!');
+            redirect('/menu');
+        }
+    } catch (error) {
+        setErrorMessage("Um erro inesperado ocorreu. Por favor, tente novamente.");
+        console.error(error);
+    }
       alert('Cadastro realizado com sucesso!');
-      // TODO: Chamar BACKEND para cadastrar usuário
     }
   };
+
 
   return (
     <div className="flex flex-1 flex-col h-full justify-around items-center bg-white text-black">
@@ -71,6 +104,18 @@ export default function Login() {
         </CardHeader>
         <CardContent className="grid gap-4 text-black">
           <form onSubmit={handleSubmit} className="grid gap-4">
+          <div className="grid gap-2">
+              <Label className='font-bold' htmlFor="email">Nome Usuário</Label>
+              <Input 
+                className='bg-[#e3e3e3] text-black'
+                id="nameUser"
+                type="string"
+                placeholder="Digite seu nome"
+                value={nameUser}
+                onChange={(e) => setNameUser(e.target.value)}
+                required
+              />
+            </div>
             <div className="grid gap-2">
               <Label className='font-bold' htmlFor="email">Email</Label>
               <Input 

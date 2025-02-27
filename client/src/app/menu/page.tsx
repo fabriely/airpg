@@ -18,7 +18,6 @@ export default function Menu() {
   }
   const [isOpen, setIsOpen] = useState(false);  // Estado que controla a visibilidade do modal
   const [code, setCode] = useState('');
-  const [link, setLink] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
@@ -26,7 +25,10 @@ export default function Menu() {
   };
 
   const openModal = () => setIsOpen(true);  // Função para abrir o modal
-  const closeModal = () => setIsOpen(false);  // Função para fechar o modal
+  const closeModal: () => void = () => {
+    setIsOpen(false);
+    setCode('');
+  };  
 
 
 
