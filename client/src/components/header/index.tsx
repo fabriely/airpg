@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Button } from 'components/ui/button';
 import React, {useState} from 'react';
 import { RectangleHorizontal } from 'lucide-react';
@@ -12,6 +12,7 @@ const Header: React.FC = () => {
     const onClose: () => void = () => {
       setIsOpen(false);
     };  
+    const router = useRouter();
 
     return(
         <header className="fixed top-0 left-0 w-full h-[80px] flex justify-between items-center px-[160px] py-[12px] bg-[#191919] ">
@@ -23,6 +24,7 @@ const Header: React.FC = () => {
                 > Fazer Login
                 </button>
                 <button
+                    onClick={() => router.push('/signup')}
                     className="w-[178px] h-[56px] rounded-[8px] bg-gradient-to-r from-[#B81414] to-[#8A0F0F] text-[#F2F2F2] font-crimson font-bold text-[20px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919] col-span-1 col-start-2"
                 > Cadastre-se
                 </button>   

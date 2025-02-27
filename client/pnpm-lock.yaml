@@ -9,10 +9,10 @@ importers:
   .:
     dependencies:
       '@hookform/resolvers':
-        specifier: ^3.9.0
+        specifier: ^3.9.1
         version: 3.9.1(react-hook-form@7.53.2(react@18.3.1))
       '@radix-ui/react-accordion':
-        specifier: ^1.1.2
+        specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.1
@@ -24,31 +24,31 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-slot':
-        specifier: ^1.0.2
+        specifier: ^1.1.0
         version: 1.1.0(@types/react@18.3.3)(react@18.3.1)
       '@radix-ui/themes':
         specifier: ^2.0.3
         version: 2.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
-        specifier: ^1.6.5
+        specifier: ^1.7.3
         version: 1.7.3
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
       clsx:
-        specifier: ^2.1.0
+        specifier: ^2.1.1
         version: 2.1.1
       cssnano:
         specifier: ^7.0.4
         version: 7.0.4(postcss@8.4.40)
       express:
-        specifier: ^4.18.2
+        specifier: ^4.19.2
         version: 4.19.2
       lucide-react:
         specifier: ^0.424.0
         version: 0.424.0(react@18.3.1)
       next:
-        specifier: ^14.0.4
+        specifier: ^14.2.5
         version: 14.2.5(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-auth:
         specifier: ^4.24.7
@@ -57,19 +57,19 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
-        specifier: ^18.2.0
+        specifier: ^18.3.1
         version: 18.3.1
       react-dom:
-        specifier: ^18.2.0
+        specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       react-hook-form:
-        specifier: ^7.52.2
+        specifier: ^7.53.2
         version: 7.53.2(react@18.3.1)
       react-hook-use-form:
         specifier: ^1.2.0
         version: 1.2.0
       sharp:
-        specifier: ^0.33.2
+        specifier: ^0.33.4
         version: 0.33.4
       tailwind-merge:
         specifier: ^2.4.0
@@ -82,31 +82,31 @@ importers:
         version: 3.23.8
     devDependencies:
       '@next/eslint-plugin-next':
-        specifier: ^14.0.4
+        specifier: ^14.2.5
         version: 14.2.5
       '@testing-library/jest-dom':
-        specifier: ^6.2.0
+        specifier: ^6.4.8
         version: 6.4.8
       '@testing-library/react':
-        specifier: ^14.1.2
+        specifier: ^14.3.1
         version: 14.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/jest':
-        specifier: ^29.5.11
+        specifier: ^29.5.12
         version: 29.5.12
       '@types/node':
         specifier: 22.13.4
         version: 22.13.4
       '@types/react':
-        specifier: ^18.2.48
+        specifier: ^18.3.3
         version: 18.3.3
       '@typescript-eslint/eslint-plugin':
-        specifier: ^6.19.0
+        specifier: ^6.21.0
         version: 6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.5.4))(eslint@8.56.0)(typescript@5.5.4)
       '@typescript-eslint/parser':
-        specifier: ^6.19.0
+        specifier: ^6.21.0
         version: 6.21.0(eslint@8.56.0)(typescript@5.5.4)
       autoprefixer:
-        specifier: ^10.4.17
+        specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.40)
       eslint:
         specifier: 8.56.0
@@ -121,13 +121,13 @@ importers:
         specifier: ^0.0.0
         version: 0.0.0
       eslint-plugin-prettier:
-        specifier: ^5.1.3
+        specifier: ^5.2.1
         version: 5.2.1(eslint-config-prettier@9.1.0(eslint@8.56.0))(eslint@8.56.0)(prettier@3.2.4)
       eslint-plugin-react:
-        specifier: ^7.33.2
+        specifier: ^7.35.0
         version: 7.35.0(eslint@8.56.0)
       eslint-plugin-react-hooks:
-        specifier: ^4.3.0
+        specifier: ^4.6.2
         version: 4.6.2(eslint@8.56.0)
       jest:
         specifier: ^29.7.0
@@ -142,19 +142,19 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1
       postcss:
-        specifier: ^8.4.33
+        specifier: ^8.4.40
         version: 8.4.40
       prettier:
         specifier: 3.2.4
         version: 3.2.4
       prettier-plugin-tailwindcss:
-        specifier: ^0.5.11
+        specifier: ^0.5.14
         version: 0.5.14(prettier@3.2.4)
       tailwindcss:
-        specifier: ^3.4.1
+        specifier: ^3.4.7
         version: 3.4.7
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.5.4
         version: 5.5.4
 
 packages:
@@ -1790,8 +1790,8 @@ packages:
   caniuse-api@3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
 
-  caniuse-lite@1.0.30001649:
-    resolution: {integrity: sha512-fJegqZZ0ZX8HOWr6rcafGr72+xcgJKI9oWfDW5DrD7ExUtgZC7a7R7ZYmZqplh7XDocFdGeIFn7roAxhOeYrPQ==}
+  caniuse-lite@1.0.30001701:
+    resolution: {integrity: sha512-faRs/AW3jA9nTwmJBSO1PQ6L/EOgsB5HMQQq4iCu5zhPgVVgO/pZRHlmatwijZKetFw8/Pr4q6dEN8sJuq8qTw==}
 
   capital-case@1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -3426,6 +3426,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  nanoid@3.3.8:
+    resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -3690,6 +3695,9 @@ packages:
 
   picocolors@1.0.1:
     resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
+
+  picocolors@1.1.1:
+    resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
@@ -4302,6 +4310,10 @@ packages:
 
   source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
+    engines: {node: '>=0.10.0'}
+
+  source-map-js@1.2.1:
+    resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
 
   source-map-support@0.5.13:
@@ -6490,7 +6502,7 @@ snapshots:
   autoprefixer@10.4.20(postcss@8.4.40):
     dependencies:
       browserslist: 4.23.3
-      caniuse-lite: 1.0.30001649
+      caniuse-lite: 1.0.30001701
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.1
@@ -6613,7 +6625,7 @@ snapshots:
 
   browserslist@4.23.3:
     dependencies:
-      caniuse-lite: 1.0.30001649
+      caniuse-lite: 1.0.30001701
       electron-to-chromium: 1.5.4
       node-releases: 2.0.18
       update-browserslist-db: 1.1.0(browserslist@4.23.3)
@@ -6661,11 +6673,11 @@ snapshots:
   caniuse-api@3.0.0:
     dependencies:
       browserslist: 4.23.3
-      caniuse-lite: 1.0.30001649
+      caniuse-lite: 1.0.30001701
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
 
-  caniuse-lite@1.0.30001649: {}
+  caniuse-lite@1.0.30001701: {}
 
   capital-case@1.0.4:
     dependencies:
@@ -8694,6 +8706,8 @@ snapshots:
 
   nanoid@3.3.7: {}
 
+  nanoid@3.3.8: {}
+
   natural-compare@1.4.0: {}
 
   negotiator@0.6.3: {}
@@ -8725,7 +8739,7 @@ snapshots:
       '@next/env': 14.2.5
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001649
+      caniuse-lite: 1.0.30001701
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
@@ -8994,6 +9008,8 @@ snapshots:
 
   picocolors@1.0.1: {}
 
+  picocolors@1.1.1: {}
+
   picomatch@2.3.1: {}
 
   pify@2.3.0: {}
@@ -9205,9 +9221,9 @@ snapshots:
 
   postcss@8.4.38:
     dependencies:
-      nanoid: 3.3.7
-      picocolors: 1.0.1
-      source-map-js: 1.2.0
+      nanoid: 3.3.8
+      picocolors: 1.1.1
+      source-map-js: 1.2.1
 
   postcss@8.4.40:
     dependencies:
@@ -9581,6 +9597,8 @@ snapshots:
       tslib: 2.6.3
 
   source-map-js@1.2.0: {}
+
+  source-map-js@1.2.1: {}
 
   source-map-support@0.5.13:
     dependencies:
