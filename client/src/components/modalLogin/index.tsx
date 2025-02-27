@@ -81,7 +81,7 @@ const ModalLogin: FC<ModalLoginProps> = ({ isOpen, onClose }) => {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center -mt-4">
-          <Button onClick={handleSubmit} className="title font-crimson font-medium text-xl bg-gradient-to-r from-[#B81414] to-[#8A0F0F] text-[#F2F2F2] text-[20px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919] px-8 py-5 h-9">
+          <Button onClick={handleSubmit} className="title font-crimson font-bold text-xl bg-gradient-to-r from-[#B81414] to-[#8A0F0F] text-[#F2F2F2] text-[20px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919] px-8 py-5 h-9">
             Fazer login
           </Button>
         </CardFooter>
