@@ -5,12 +5,12 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-zinc-300',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-bold font-crimson transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-zinc-300 leading-[1]',
   {
     variants: {
       variant: {
         default:
-          'bg-zinc-900 text-zinc-50 shadow hover:bg-zinc-900/90 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90',
+          'bg-gradient-to-r from-[#F2F2F2] to-[#D4D4D4] text-[1A1A1A] shadow hover:bg-gradient-to-r hover:from-[#D4D4D4]/90 hover:to-[#B5B5B5]/90 focus:dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90',
         destructive:
           'bg-red-500 text-zinc-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-zinc-50 dark:hover:bg-red-900/90',
         outline:
@@ -22,7 +22,7 @@ const buttonVariants = cva(
         link: 'text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50'
       },
       size: {
-        default: 'h-9 px-4 py-2',
+        default: 'py-4 px-4', // 16px top-bottom padding, 24px left-right padding
         sm: 'h-8 rounded-md px-3 text-xs',
         lg: 'h-10 rounded-md px-8',
         icon: 'h-9 w-9'

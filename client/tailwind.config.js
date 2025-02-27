@@ -75,9 +75,9 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        skranji: ['Skranji', 'cursive'],
-        crimson: ['Crimson Text', 'serif'],
-      }
+        crimson: ["Crimson Text", "serif"],
+        grenze: ["Grenze Gotisch", "serif"],
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
