@@ -14,7 +14,7 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     password = Column(String)
     campaigns = relationship("Campaign", back_populates="user")  
-    # players = relationship("CampaignPlayer", back_populates="player")  
+    players = relationship("CampaignPlayer", back_populates="player")  
 
 class Campaign(Base):
     __tablename__ = "campaigns"
@@ -25,16 +25,16 @@ class Campaign(Base):
     user = relationship("User", back_populates="campaigns") 
     description = Column(String)
     code = Column(String, unique=True, index=True)
-    # players = relationship("CampaignPlayer", back_populates="campaign")  
+    players = relationship("CampaignPlayer", back_populates="campaign")  
 
 
 
-# class CampaignPlayer(Base):
-#     __tablename__ = "campaign_players"
-#     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
-#     campaign_id = Column(UUID(as_uuid=True), ForeignKey("campaigns.id"))
-#     campaign = relationship("Campaign", back_populates="players")  
-#     player_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
-#     player = relationship("User", back_populates="players")  
-#     is_master = Column(Integer)
-#     is_player = Column(Integer)
+class CampaignPlayer(Base):
+    __tablename__ = "campaign_players"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    campaign_id = Column(UUID(as_uuid=True), ForeignKey("campaigns.id"))
+    campaign = relationship("Campaign", back_populates="players")  
+    player_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    player = relationship("User", back_populates="players")  
+    is_master = Column(Integer)
+    is_player = Column(Integer)

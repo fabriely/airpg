@@ -4,7 +4,9 @@ from typing import List
 import crud, schema
 import crud.campaign as crud
 import crud.user as crudUser
-from dependencies import get_db  # Make sure this function is defined elsewhere
+from dependencies import get_db  
+from models import CampaignPlayer
+
 
 router = APIRouter()
 
@@ -45,12 +47,26 @@ async def get_all_campaigns(db: Session = Depends(get_db)):
     campaigns = crud.get_all_campaigns(db)
     return {"data": {"campaigns": campaigns}}
 
-@router.get("/users-campaigns", response_model=List[schema.Campaign])
+@router.get("/users-campaigns")
 def get_user_campaigns(user_email: str, db: Session = Depends(get_db)):
     user = crudUser.get_user_by_email(db, user_email)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
-    # Obter campanhas do usuário
-    campaigns = crud.get_campaign_by_user(db, user.id)
+    # Buscar as campanhas em que o usuário está participando
+    campaign_players = db.query(CampaignPlayer).filter(CampaignPlayer.player_id == user.id).all()
+
+    # Construir a resposta incluindo o campo `is_master`
+    campaigns = [
+        {
+            "id": cp.campaign.id,
+            "name": cp.campaign.name,
+            "system_rpg": cp.campaign.system_rpg,
+            "description": cp.campaign.description,
+            "code": cp.campaign.code,
+            "is_master": cp.is_master  # Incluindo a informação de mestre
+        }
+        for cp in campaign_players
+    ]
+    
     return campaigns

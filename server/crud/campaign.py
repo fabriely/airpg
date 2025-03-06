@@ -3,7 +3,7 @@ import schema
 import random
 import string
 from sqlalchemy.orm import Session
-from models import Campaign, User
+from models import Campaign, User, CampaignPlayer
 from uuid import uuid4
 
 def generate_campaign_code(length=6):
@@ -22,8 +22,6 @@ def create_campaign(db: Session, campaign: schema.CampaignCreate, user_email: st
     if not user:
         raise ValueError("Usuário não encontrado")
     
-    print(user.id)
-    print(code)
 
     # Criar o objeto da campanha
     db_campaign = Campaign(
@@ -39,17 +37,17 @@ def create_campaign(db: Session, campaign: schema.CampaignCreate, user_email: st
     db.commit()
     db.refresh(db_campaign)
 
-    # Criar um jogador (o usuário será o mestre e jogador da campanha)
-    # campaign_player = CampaignPlayer(
-    #     campaign_id=db_campaign.id,
-    #     player_id=user.id,
-    #     is_master=1,  # O usuário é o mestre da campanha
-    #     is_player=1   # O usuário é também um jogador
-    # )
+    # Criar um jogador 
+    campaign_player = CampaignPlayer(
+        campaign_id=db_campaign.id,
+        player_id=user.id,
+        is_master=1,  # O usuário é o mestre da campanha
+        is_player=0  
+    )
 
-    # # Adicionar à sessão e salvar o jogador
-    # db.add(campaign_player)
-    # db.commit()
+    # Adicionar à sessão e salvar o jogador
+    db.add(campaign_player)
+    db.commit()
 
     return db_campaign
 

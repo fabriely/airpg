@@ -27,7 +27,8 @@ export default function Menu() {
         const response = await api.get('/users-campaigns', {
           params: { user_email: session.data?.user?.email } // Usando o email do usuário logado
         });
-        setCampaigns(response.data); // Armazenando as campanhas no estado
+        setCampaigns(response.data); 
+        console.log(response.data)// Armazenando as campanhas no estado
       } catch (error) {
         console.error("Erro ao buscar campanhas:", error);
       }
@@ -65,6 +66,7 @@ export default function Menu() {
                 key={campaign.id}
                 campaignName={campaign.name}
                 systemRPG={campaign.system_rpg}
+                is_master={campaign.is_master}
                 className="col-span-1 col-start-1" 
             />
           ))

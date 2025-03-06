@@ -28,7 +28,6 @@ class CampaignBase(BaseModel):
     class Config:
         orm_mode = True
 
-# Schema para criação de campanha (sem o campo user_id, que será derivado do email)
 class CampaignCreate(CampaignBase):
     user_email: str
 
@@ -41,3 +40,15 @@ class Campaign(CampaignBase):
 
     class Config:
         orm_mode = True
+
+#Definindo o schema para a criação de um jogador
+class CampaignPlayerBase(BaseModel):
+    campaign_id: UUID
+    player_id: UUID
+    is_master: int
+    is_player: int
+
+
+
+
+
