@@ -26,7 +26,7 @@ const PdfReader = React.forwardRef<
         <div className="w-full h-full">
             <Worker workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`}>
                 <Viewer 
-                    fileUrl="https://pdfobject.com/pdf/pdf_open_parameters_acro8.pdf"
+                    fileUrl="/pdf/Player.pdf"
                     plugins={[defaultLayoutPluginInstance]}
                 />
             </Worker>
