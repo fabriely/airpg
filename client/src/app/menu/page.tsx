@@ -12,36 +12,34 @@ export default function Menu() {
   const session = useSession();
   const router = useRouter();
 
-  // Se o usuário não estiver autenticado, redireciona para a página inicial
   if (session.status === 'unauthenticated') {
     redirect('/');
   }
 
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState('');
-  const [campaigns, setCampaigns] = useState([]); // Estado para armazenar as campanhas
+  const [campaigns, setCampaigns] = useState([]); 
 
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
         const response = await api.get('/users-campaigns', {
-          params: { user_email: session.data?.user?.email } // Usando o email do usuário logado
+          params: { user_email: session.data?.user?.email }
         });
-        setCampaigns(response.data); 
-        console.log(response.data)// Armazenando as campanhas no estado
+        setCampaigns(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error("Erro ao buscar campanhas:", error);
       }
     };
 
     if (session.status === 'authenticated') {
-      fetchCampaigns(); // Buscar as campanhas quando o usuário estiver autenticado
+      fetchCampaigns();
     }
   }, [session.status, session.data?.user?.email]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Código para processar a entrada na campanha
   };
 
   const openModal = () => setIsOpen(true);
@@ -63,11 +61,16 @@ export default function Menu() {
         {campaigns.length > 0 ? (
           campaigns.map((campaign: any) => (
             <Maincard
-                key={campaign.id}
-                campaignName={campaign.name}
-                systemRPG={campaign.system_rpg}
-                is_master={campaign.is_master}
-                className="col-span-1 col-start-1" 
+              key={campaign.id}
+              campaignName={campaign.name}
+              systemRPG={campaign.system_rpg}
+              is_master={campaign.is_master}
+              onClick={() => {
+                if (campaign.is_master) {
+                  router.push('/campaign/master');
+                }
+              }}
+              className="col-span-1 col-start-1" 
             />
           ))
         ) : (
@@ -85,7 +88,6 @@ export default function Menu() {
           </div>
         </Card>
         
-        {/* Modal */}
         <ModalJoinCampaign
           isOpen={isOpen}
           closeModal={closeModal}

@@ -3,15 +3,18 @@ import { Card, CardContent } from 'components/ui/card';
 import { cn } from 'lib/utils';
 
 interface MaincardProps extends React.HTMLAttributes<HTMLDivElement> {
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   campaignName: string;
   systemRPG: string;
   is_master?: boolean;
 }
 
 const Maincard = React.forwardRef<HTMLDivElement, MaincardProps>(
-  ({ campaignName, systemRPG, is_master, className, ...props }, ref) => (
+  ({ campaignName, systemRPG, is_master, onClick, className, ...props }, ref) => (
     <div ref={ref} className={cn(className)} {...props}>
-      <button className='flex flex-col  w-full h-full bg-[#191919] shadow-[4px_4px_4px_hsla(0, 0, 0, 25%)] rounded-2xl bg-clip-content'>
+      <button 
+      onClick={onClick}
+      className='flex flex-col  w-full h-full bg-[#191919] shadow-[4px_4px_4px_hsla(0, 0, 0, 25%)] rounded-2xl bg-clip-content'>
         <div className='w-full h-full bg-[#E3E3E3] rounded-t-2xl'>
           {/* Imagem ou algo mais pode ser adicionado aqui */}
         </div>
