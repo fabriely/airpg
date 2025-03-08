@@ -51,8 +51,39 @@ def create_campaign(db: Session, campaign: schema.CampaignCreate, user_email: st
 
     return db_campaign
 
+#Função para pegar as campanhas do usuário
 def get_campaign_by_user(db: Session, user_id: str):
     return db.query(Campaign).filter(Campaign.user_id == user_id).all()
 
+#Função para obter a campanha pelo código
 def get_campaign_by_code(db: Session, code: str):
     return db.query(Campaign).filter(Campaign.code == code).first()
+
+#Função para entrar na campanha
+def join_campaign(db: Session, join: schema.JoinCampaign):
+    # Obter a campanha com base no código
+    campaign = get_campaign_by_code(db, join.code)
+    if not campaign:
+        raise ValueError("Campanha não encontrada")
+
+    # Obter o usuário com base no email
+    user = db.query(User).filter(User.email == join.user_email).first()
+    if not user:
+        raise ValueError("Usuário não encontrado")
+
+    # Verificar se o usuário já está na campanha
+    campaign_player = db.query(CampaignPlayer).filter(CampaignPlayer.campaign_id == campaign.id, CampaignPlayer.player_id == user.id).first()
+    if campaign_player:
+        raise ValueError("Usuário já está na campanha")
+
+    # Criar um jogador
+    campaign_player = CampaignPlayer(
+        campaign_id=campaign.id,
+        player_id=user.id,
+        is_master=0,
+        is_player=1
+    )
+
+    # Adicionar à sessão e salvar o jogador
+    db.add(campaign_player)
+    db.commit()

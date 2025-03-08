@@ -15,7 +15,7 @@ import {
     Dices,
     Bot
 } from 'lucide-react';
-import api from 'services/api'; // Certifique-se de importar a API corretamente
+import api from 'services/api';
 import { Header } from 'components';
 
 interface Campaign {

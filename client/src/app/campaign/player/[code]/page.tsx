@@ -2,27 +2,79 @@
 
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { CampaignPanel } from 'components/ui/campaign-panel'
 import { Button } from 'components/ui/button';
+import { ChatBot } from 'components/ui/chatbot';
+import api from 'services/api'; 
+
+
 import { 
-    CircleUserRound,
     NotebookPen,
     BookMarked,
     Dices,
     Bot
 } from 'lucide-react';
+import { Header } from 'components';
 
-export default function Campaign() {
+interface Campaign {
+    name: string;
+    description: string;
+}
+
+export default function CampaignPlayer({ params }: { params: { code: string } }) {
     const session = useSession();
+    const { code } = params;  
+
+    const [campaign, setCampaign] = useState<Campaign | null>(null); // Estado para armazenar as informações da campanha
+    const [isChatBotVisible, setIsChatBotVisible] = useState(false);
+    const [loading, setLoading] = useState(true); 
     
-    if (session.status === 'authenticated') {
-        redirect('/campaign')
+    useEffect(() => {
+        if (session.status === 'unauthenticated') {
+            redirect('/');
+        }
+
+        // Verifica se o código foi obtido da URL
+        if (code) {
+            const fetchCampaignData = async () => {
+                try {
+                    const response = await api.get(`/campaign/${code}`); 
+                    setCampaign(response.data.data.campaign)// Faz a requisição para obter os detalhes da campanha
+                    setLoading(false); // Define o loading como falso quando os dados forem carregados
+                } catch (error) {
+                    console.error('Erro ao buscar a campanha:', error);
+                    setLoading(false);
+                }
+            };
+
+            fetchCampaignData();
+        }
+    }, [session.status, code]);
+
+    // Exibe um loading até os dados da campanha serem carregados
+    if (loading) {
+        return <div>Carregando...</div>;
     }
 
+    if (!campaign) {
+        return <div>Campanha não encontrada.</div>; // Exibe uma mensagem caso não encontre a campanha
+    }
+
+    const handleChatBotToggle = () => {
+        setIsChatBotVisible(prev => !prev); // Alterna a visibilidade do ChatBot
+    };
+
+
     return (
+        <div>
+
+        <Header />
         <div className="grid grid-cols-3 grid-rows-[48px_1fr] gap-y-8 gap-x-16 w-full px-40 pt-28 pb-[72px] h-full">
             <div className="col-span-3 row-start-1 h-full flex items-center justify-start">
-                <span className="font-grenze font-bold text-[40px] text-[#191919] leading-[1.2] ">// Nome da Campanha</span>
+                <span className="font-grenze font-bold text-[40px] text-[#191919] leading-[1.2] ">
+                {campaign?.name || 'Nome da campanha não encontrado'}
+                </span>
             </div>
             <div className="col-span-1 row-start-2 flex flex-col items-center">
                 <div className="relative w-full pb-[50%] border-4 border-yellow-500 mb-4 rounded-[8px]">
@@ -56,7 +108,8 @@ export default function Campaign() {
                             Rolar Dados
                         </div>
                     </Button>
-                    <Button className="w-full justify-between">
+                    <Button className="w-full justify-between"
+                            onClick={handleChatBotToggle}>
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <Bot className="h-5 text-[#191919]" />
                             Chatbot
@@ -64,7 +117,11 @@ export default function Campaign() {
                     </Button>
                 </div>
             </div>
-            <CampaignPanel className="col-span-2"/>
+            <CampaignPanel className="col-span-2">
+                {isChatBotVisible && <ChatBot />}
+
+                </CampaignPanel>
         </div>
+    </div>
     )
 }

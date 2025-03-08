@@ -48,6 +48,13 @@ class CampaignPlayerBase(BaseModel):
     is_master: int
     is_player: int
 
+    class Config:
+        orm_mode = True
+
+class JoinCampaign(BaseModel):
+    code: str
+    user_email: str
+
 
 
 

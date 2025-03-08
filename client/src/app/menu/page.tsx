@@ -17,7 +17,6 @@ export default function Menu() {
   }
 
   const [isOpen, setIsOpen] = useState(false);
-  const [code, setCode] = useState('');
   const [campaigns, setCampaigns] = useState([]); 
 
   useEffect(() => {
@@ -37,14 +36,9 @@ export default function Menu() {
     }
   }, [session.status, session.data?.user?.email]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
-
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
     setIsOpen(false);
-    setCode('');
   };
 
   const handleCardClick = (campaign: any) => {
@@ -98,9 +92,7 @@ export default function Menu() {
       <ModalJoinCampaign
         isOpen={isOpen}
         closeModal={closeModal}
-        handleSubmit={handleSubmit}
-        code={code}
-        setCode={setCode}
+        userEmail={session.data?.user?.email ?? ''}
       />
     </div>
   );
