@@ -12,10 +12,12 @@ import {
     Bot
 } from 'lucide-react';
 
+
+
 export default function Campaign() {
     const session = useSession();
     
-    if (session.status === 'authenticated') {
+    if (session.status === 'unauthenticated') {
         redirect('/campaign')
     }
 
