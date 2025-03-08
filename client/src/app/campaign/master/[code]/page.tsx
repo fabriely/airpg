@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { CampaignPanel } from 'components/ui/campaign-panel';
 import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
+import { ChatBot } from 'components/ui/chatbot';
 
 import { 
     CircleUserRound,
@@ -15,6 +16,7 @@ import {
     Bot
 } from 'lucide-react';
 import api from 'services/api'; // Certifique-se de importar a API corretamente
+import { Header } from 'components';
 
 interface Campaign {
     name: string;
@@ -29,7 +31,8 @@ export default function CampaignMaster({ params }: { params: { code: string } })
     const session = useSession();
 
     const [campaign, setCampaign] = useState<Campaign | null>(null); // Estado para armazenar as informações da campanha
-    const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
+    const [loading, setLoading] = useState(true); 
+    const [isChatBotVisible, setIsChatBotVisible] = useState(false); 
 
     useEffect(() => {
         if (session.status === 'unauthenticated') {
@@ -64,7 +67,14 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         return <div>Campanha não encontrada.</div>; // Exibe uma mensagem caso não encontre a campanha
     }
 
+    const handleChatBotToggle = () => {
+        setIsChatBotVisible(prev => !prev); // Alterna a visibilidade do ChatBot
+    };
+
     return (
+        <div>   
+
+        <Header />
         <div className="grid grid-cols-3 grid-rows-[48px_1fr] gap-y-8 gap-x-16 w-full px-40 pt-28 pb-[72px] h-full">
             <div className="col-span-3 row-start-1 h-full flex items-center justify-start">
                 <span className="font-grenze font-bold text-[40px] leading-[1.2]">
@@ -105,7 +115,10 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                             Rolar Dados
                         </div>
                     </Button>
-                    <Button className="w-full justify-between">
+                    <Button 
+                        className="w-full justify-between"
+                        onClick={handleChatBotToggle} // Altera o estado de visibilidade do ChatBot
+                    >
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <Bot className="h-5 text-[#191919]" />
                             Chatbot
@@ -113,7 +126,10 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                     </Button>
                 </div>
             </div>
-            <CampaignPanel className="col-span-2"/>
+            <CampaignPanel className="col-span-2">
+                {isChatBotVisible && <ChatBot />}
+            </CampaignPanel>
+        </div>
         </div>
     );
 }
