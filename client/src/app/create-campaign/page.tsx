@@ -54,8 +54,7 @@ export default function CreateCampaign() {
                 user_email: session.data?.user?.email
             });
             if (response.status === 200) {
-                const data = response.data;
-                alert(`Campanha criada com sucesso! Código da campanha: ${data.campaign.code}`);
+                alert(`Campanha criada com sucesso! Bom jogo, mestre ${session.data?.user?.username}!`);
                 setCampaignName('');
                 setSelectedSystem(null);
                 setCampaignDescription('');

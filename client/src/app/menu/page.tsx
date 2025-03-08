@@ -47,6 +47,15 @@ export default function Menu() {
     setCode('');
   };
 
+  const handleCardClick = (campaign: any) => {
+    // Verifique se o usuário é o mestre e redirecione conforme necessário
+    if (campaign.is_master) {
+      router.push(`/campaign/master/${campaign.code}`);  
+    } else {
+      router.push(`/campaign/player/${campaign.code}`); 
+    }
+  };
+
   return (
     <div className="bg-[#F2F2F2] w-full h-full px-[160px]">
       <Header />
@@ -64,11 +73,7 @@ export default function Menu() {
               campaignName={campaign.name}
               systemRPG={campaign.system_rpg}
               is_master={campaign.is_master}
-              onClick={() => {
-                if (campaign.is_master) {
-                  router.push('/campaign/master');
-                }
-              }}
+              onClick={() => handleCardClick(campaign)}
               className="col-span-1" 
             />
           ))
