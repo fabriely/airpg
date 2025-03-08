@@ -53,3 +53,6 @@ def create_campaign(db: Session, campaign: schema.CampaignCreate, user_email: st
 
 def get_campaign_by_user(db: Session, user_id: str):
     return db.query(Campaign).filter(Campaign.user_id == user_id).all()
+
+def get_campaign_by_code(db: Session, code: str):
+    return db.query(Campaign).filter(Campaign.code == code).first()

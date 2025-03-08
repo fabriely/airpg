@@ -1,9 +1,12 @@
-'use client'
+'use client';
 
 import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation';
-import { CampaignPanel } from 'components/ui/campaign-panel'
+import { CampaignPanel } from 'components/ui/campaign-panel';
 import { Button } from 'components/ui/button';
+import { Card } from 'components/ui/card';
+
 import { 
     CircleUserRound,
     NotebookPen,
@@ -11,25 +14,72 @@ import {
     Dices,
     Bot
 } from 'lucide-react';
+import api from 'services/api'; // Certifique-se de importar a API corretamente
 
+interface Campaign {
+    name: string;
+    image: string;
+    code: string;
+    description: string;
+}
 
+export default function CampaignMaster({ params }: { params: { code: string } }) {
+    const { code } = params;  
 
-export default function Campaign() {
     const session = useSession();
-    
-    if (session.status === 'unauthenticated') {
-        redirect('/campaign')
+
+    const [campaign, setCampaign] = useState<Campaign | null>(null); // Estado para armazenar as informações da campanha
+    const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
+
+    useEffect(() => {
+        if (session.status === 'unauthenticated') {
+            redirect('/');
+        }
+
+        // Verifica se o código foi obtido da URL
+        if (code) {
+            const fetchCampaignData = async () => {
+                try {
+                    const response = await api.get(`/campaign/${code}`); 
+                    setCampaign(response.data.data.campaign)// Faz a requisição para obter os detalhes da campanha
+                    setLoading(false); // Define o loading como falso quando os dados forem carregados
+                } catch (error) {
+                    console.error('Erro ao buscar a campanha:', error);
+                    setLoading(false);
+                }
+            };
+
+            fetchCampaignData();
+        }
+    }, [session.status, code]);
+
+    console.log(campaign)
+
+    // Exibe um loading até os dados da campanha serem carregados
+    if (loading) {
+        return <div>Carregando...</div>;
+    }
+
+    if (!campaign) {
+        return <div>Campanha não encontrada.</div>; // Exibe uma mensagem caso não encontre a campanha
     }
 
     return (
         <div className="grid grid-cols-3 grid-rows-[48px_1fr] gap-y-8 gap-x-16 w-full px-40 pt-28 pb-[72px] h-full">
             <div className="col-span-3 row-start-1 h-full flex items-center justify-start">
-                <span className="font-grenze font-bold text-[40px] leading-[1.2]">// Nome da Campanha</span>
+                <span className="font-grenze font-bold text-[40px] leading-[1.2]">
+                    {campaign?.name || 'Nome da campanha não encontrado'}
+                </span>
             </div>
             <div className="col-span-1 row-start-2 flex flex-col items-center">
-                <div className="relative w-full pb-[50%] border-4 border-yellow-500 mb-4 rounded-[8px]">
-                    <img src="/path/to/your/image.jpg" alt="Campaign Image" className="w-full h-full object-cover rounded-[8px]" />
-                </div>
+                <Card className="w-full p-6 shadow-lg mb-4">
+                    <div className="text-xl font-semibold font-crimson text-gray-700">
+                        Código da Campanha
+                    </div>
+                    <div className="text-2xl font-bold font-crimson text-gray-900 mt-2">
+                        {campaign?.code}
+                    </div>
+                </Card>
                 <div className="flex flex-col space-y-4 w-full">
                     <Button className="w-full justify-between">
                         <div className="flex items-center gap-x-6">
@@ -65,5 +115,5 @@ export default function Campaign() {
             </div>
             <CampaignPanel className="col-span-2"/>
         </div>
-    )
+    );
 }
