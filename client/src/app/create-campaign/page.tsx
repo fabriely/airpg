@@ -59,7 +59,7 @@ export default function CreateCampaign() {
                 setCampaignName('');
                 setSelectedSystem(null);
                 setCampaignDescription('');
-                router.replace("/")
+                router.replace("/menu")
 
             } else {
                 console.error(response.statusText);

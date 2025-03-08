@@ -27,7 +27,6 @@ export default function Menu() {
           params: { user_email: session.data?.user?.email }
         });
         setCampaigns(response.data);
-        console.log(response.data)
       } catch (error) {
         console.error("Erro ao buscar campanhas:", error);
       }
@@ -53,7 +52,7 @@ export default function Menu() {
       <Header />
       <div className="mt-[80px] py-[32px]">
         <h1 className="flex justify-between items-center text-[#191919] font-bold font-grenze text-[40px]"> 
-          Suas Campanhas
+         // Suas Campanhas
         </h1>
       </div>
 

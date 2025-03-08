@@ -15,8 +15,6 @@ router = APIRouter()
 async def create_new_campaign(campaign: schema.CampaignCreate, db: Session = Depends(get_db)):
     # A partir do email, obter o usuário
     user_email = campaign.user_email
-
-
     try:
         # Chama a função de criação da campanha passando o email do usuário
         new_campaign = crud.create_campaign(db, campaign, user_email)
