@@ -3,10 +3,11 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation';
-import { CampaignPanel } from 'components/ui/campaign-panel';
+import { CampaignPanel } from 'components/campaign/campaign-panel';
 import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
-import { ChatBot } from 'components/ui/chatbot';
+import { ChatBot } from 'components/campaign/chatbot';
+import PlayerList from 'components/campaign/CampaignPlayersCard';
 
 import { 
     CircleUserRound,
@@ -33,6 +34,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
     const [campaign, setCampaign] = useState<Campaign | null>(null); // Estado para armazenar as informações da campanha
     const [loading, setLoading] = useState(true); 
     const [isChatBotVisible, setIsChatBotVisible] = useState(false); 
+    const [isPlayersVisible, setPlayersVisible] = useState(false);
 
     useEffect(() => {
         if (session.status === 'unauthenticated') {
@@ -64,11 +66,16 @@ export default function CampaignMaster({ params }: { params: { code: string } })
     }
 
     if (!campaign) {
-        return <div>Campanha não encontrada.</div>; // Exibe uma mensagem caso não encontre a campanha
+        return <div>Campanha não encontrada.</div>; 
     }
 
     const handleChatBotToggle = () => {
-        setIsChatBotVisible(prev => !prev); // Alterna a visibilidade do ChatBot
+        setIsChatBotVisible(prev => !prev);
+        setPlayersVisible(false); 
+    };
+    const handlePlayersToggle = () => {
+        setPlayersVisible(prev => !prev); 
+        setIsChatBotVisible(false);
     };
 
     return (
@@ -91,7 +98,8 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                     </div>
                 </Card>
                 <div className="flex flex-col space-y-4 w-full">
-                    <Button className="w-full justify-between">
+                    <Button className="w-full justify-between"
+                    onClick={handlePlayersToggle}>
                         <div className="flex items-center gap-x-6">
                             <CircleUserRound className="h-5" />
                             Fichas dos Personagens
@@ -128,6 +136,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
             </div>
             <CampaignPanel className="col-span-2">
                 {isChatBotVisible && <ChatBot />}
+                {isPlayersVisible && <PlayerList code={code} />}
             </CampaignPanel>
         </div>
         </div>

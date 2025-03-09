@@ -3,9 +3,9 @@
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CampaignPanel } from 'components/ui/campaign-panel'
+import { CampaignPanel } from 'components/campaign/campaign-panel'
 import { Button } from 'components/ui/button';
-import { ChatBot } from 'components/ui/chatbot';
+import { ChatBot } from 'components/campaign/chatbot';
 import { Card } from 'components/ui/card';
 import api from 'services/api'; 
 
