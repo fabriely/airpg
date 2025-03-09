@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
-import { CampaignPanel } from 'components/campaign/campaign-panel';
+import { CampaignPanel } from 'components/campaign/CampaignPanel';
 import { Textarea } from 'components/ui/textarea';
 import { Button } from 'components/ui/button';
 import { Send } from 'lucide-react';

@@ -3,10 +3,10 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation';
-import { CampaignPanel } from 'components/campaign/campaign-panel';
+import { CampaignPanel } from 'components/campaign/CampaignPanel';
 import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
-import { ChatBot } from 'components/campaign/chatbot';
+import { ChatBot } from 'components/campaign/ChatBot';
 import PlayerList from 'components/campaign/CampaignPlayersCard';
 
 import { 
