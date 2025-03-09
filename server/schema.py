@@ -1,5 +1,6 @@
 from pydantic import BaseModel, constr, field_validator
 from uuid import UUID
+from datetime import datetime
 
 # Definindo o schema de base do usuário
 class UserBase(BaseModel):
@@ -63,5 +64,14 @@ class ValidateCampaign(BaseModel):
     code: str
     user_email: str
 
+#Mensagem do chat
+
+class ChatRequest(BaseModel):
+    content: str
+
+class ChatResponse(BaseModel):
+    user_message: str
+    bot_response: str
+    created_at: datetime
 
 

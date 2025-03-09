@@ -7,6 +7,7 @@ import { Textarea } from 'components/ui/textarea';
 import { Button } from 'components/ui/button';
 import { Send } from 'lucide-react';
 import { cn } from 'lib/utils';
+import api from 'services/api';
 
 const ChatBot = React.forwardRef<
   HTMLDivElement,
@@ -26,19 +27,16 @@ const ChatBot = React.forwardRef<
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (inputValue.trim()) {
-    
-      // inputValue é a mensagem que o usuário escreveu
-      // TODO: mandar a mensagem para o backend, para o gemini
       setMessages(prev => [...prev, { content: inputValue, isUser: true }]);
-      
-      // "Resposta do gemini..." é a mensagem que o gemini respondeu no backend
-      // TODO: pegar a mensagem do backend e substuir aqui
-      setMessages(prev => [
-        ...prev, 
-        { content: "Resposta do gemini...", isUser: false }
-      ]);
+      try {
+        const response = await api.post('/chat', { content: inputValue });
+        setMessages(prev => [...prev, { content: response.data.bot_response, isUser: false }]);
+      } catch (error) {
+        setMessages(prev => [...prev, { content: "Erro ao conectar com o servidor.", isUser: false }]);
+
+      }
       setInputValue('');
     }
     

@@ -1,6 +1,7 @@
 # app/models.py
-from sqlalchemy import Column, String, Integer, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Integer, Text, ForeignKey, DateTime
+from datetime import datetime
+from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
@@ -40,3 +41,12 @@ class CampaignPlayer(Base):
     player = relationship("User", back_populates="players")  
     is_master = Column(Integer)
     is_player = Column(Integer)
+
+
+class ChatMessage(Base):
+    __tablename__ = "chat_messages"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_message = Column(Text, nullable=False)
+    bot_response = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
