@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from fastapi import HTTPException
 import schema
 import random
 import string
@@ -66,16 +67,13 @@ def validate_campaign(db: Session, validate: schema.ValidateCampaign):
    # Obter a campanha com base no código
     campaign = get_campaign_by_code(db, validate.code)
     if not campaign:
-        print(ValueError)
-        raise ValueError("Campanha não encontrada")
-    
-    print(campaign)
+        raise HTTPException(status_code=404, detail="Campanha não encontrada")
+
 
     # Obter o usuário com base no email
     user = db.query(User).filter(User.email == validate.user_email).first()
     if not user:
-        print(ValueError)
-        raise ValueError("Usuário não encontrado")
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
     print(user)
 
 #Função para entrar na campanha

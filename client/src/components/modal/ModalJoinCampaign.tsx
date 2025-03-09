@@ -18,7 +18,7 @@ const ModalJoinCampaign: FC<ModalProps> = ({ isOpen, closeModal, userEmail }) =>
     const [characterClass, setCharacterClass] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [step, setStep] = useState(1); // 1 = Inserir código, 2 = Inserir personagem
+    const [step, setStep] = useState(1); 
 
     const handleValidateCode = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -29,6 +29,7 @@ const ModalJoinCampaign: FC<ModalProps> = ({ isOpen, closeModal, userEmail }) =>
             const response = await api.post('/validate-campaign/', {
                code, user_email: userEmail 
             });
+            console.log(response.data);
             
             const data = response.data
 
