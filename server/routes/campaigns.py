@@ -72,6 +72,15 @@ def get_user_campaigns(user_email: str, db: Session = Depends(get_db)):
     
     return campaigns
 
+# Rota para validar um código de campanha
+@router.post("/validate-campaign/")
+def validate_campaign(validate: schema.ValidateCampaign, db: Session = Depends(get_db)):
+    try:
+        crud.validate_campaign(db, validate.code, validate.user_email)
+        return {"valid": True}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
 # Rota para entrar em uma campanha
 @router.post("/join-campaign/")
 def join_campaign(join: schema.JoinCampaign, db: Session = Depends(get_db)):

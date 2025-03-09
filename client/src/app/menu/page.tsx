@@ -5,7 +5,7 @@ import { Header, Maincard } from "components/index";
 import { useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import { Card } from 'components/ui/card';
-import ModalJoinCampaign from 'components/modalJoinCampaign';
+import ModalJoinCampaign from 'components/modal/ModalJoinCampaign';
 import api from "services/api"; 
 
 export default function Menu() {

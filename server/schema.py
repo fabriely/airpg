@@ -42,11 +42,16 @@ class Campaign(CampaignBase):
         orm_mode = True
 
 #Definindo o schema para a criação de um jogador
+from pydantic import BaseModel
+from uuid import UUID
+
 class CampaignPlayerBase(BaseModel):
     campaign_id: UUID
     player_id: UUID
-    is_master: int
-    is_player: int
+    character_name: str
+    character_class: str
+    is_master: bool
+    is_player: bool
 
     class Config:
         orm_mode = True
@@ -54,8 +59,13 @@ class CampaignPlayerBase(BaseModel):
 class JoinCampaign(BaseModel):
     code: str
     user_email: str
+    character_name: str
+    character_class: str
 
 
+class ValidateCampaign(BaseModel):
+    code: str
+    user_email: str
 
 
 
