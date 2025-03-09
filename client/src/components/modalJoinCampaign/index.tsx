@@ -5,7 +5,6 @@ import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'components/ui/card';
 import api from 'services/api';
-import { setRequestMeta } from 'next/dist/server/request-meta';
 
 interface ModalProps {
     isOpen: boolean;

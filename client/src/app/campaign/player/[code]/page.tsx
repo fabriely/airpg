@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { CampaignPanel } from 'components/ui/campaign-panel'
 import { Button } from 'components/ui/button';
 import { ChatBot } from 'components/ui/chatbot';
+import { Card } from 'components/ui/card';
 import api from 'services/api'; 
 
 
@@ -77,14 +78,19 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
                 </span>
             </div>
             <div className="col-span-1 row-start-2 flex flex-col items-center">
-                <div className="relative w-full pb-[50%] border-4 border-yellow-500 mb-4 rounded-[8px]">
-                    <img src="/path/to/your/image.jpg" alt="Campaign Image" className="w-full h-full object-cover rounded-[8px]" />
-                </div>
+                <Card className="w-full p-6 shadow-lg mb-4">
+                    <div className="text-xl font-semibold font-crimson text-gray-700">
+                        Descrição da Campanha
+                    </div>
+                    <div className="text-2xl font-bold font-crimson text-gray-900 mt-2">
+                        {campaign?.description}
+                    </div>
+                </Card>
                 <div className="flex flex-col space-y-4 w-full">
                     <Button className="w-full justify-between">
                         <div className="flex items-center gap-x-6 text-[#191919]">
-                            <img src="/path/to/your/image.jpg" alt="Character Picture" className="w-16 h-16 rounded-full bg-[#191919]" />
-                            <div className="flex flex-col text-[#191919] w-full h-full justify-center">
+                        <div className="w-14 h-14 rounded-full bg-black"></div>
+                        <div className="flex flex-col text-[#191919] w-full h-full justify-center">
                                 <h2 className="text-2xl text-[#191919] text-left font-grenze">Nome do Personagem</h2>
                                 <p className="text-base text-[#191919] text-left font-crimson font-normal">Race Class | Level ##</p>
                             </div>
