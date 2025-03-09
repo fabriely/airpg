@@ -3,7 +3,7 @@ from fastapi import HTTPException
 import schema
 import random
 import string
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from models import Campaign, User, CampaignPlayer
 from uuid import uuid4
 
@@ -60,7 +60,12 @@ def get_campaign_by_user(db: Session, user_id: str):
 
 #Função para obter a campanha pelo código
 def get_campaign_by_code(db: Session, code: str):
-    return db.query(Campaign).filter(Campaign.code == code).first()
+    return (
+        db.query(Campaign)
+        .filter(Campaign.code == code)
+        .options(joinedload(Campaign.players)) 
+        .first()
+    )
 
 #Função para validar código da campanha e usuário
 def validate_campaign(db: Session, validate: schema.ValidateCampaign):

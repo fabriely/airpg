@@ -18,9 +18,16 @@ import {
 } from 'lucide-react';
 import { Header } from 'components';
 
+interface Player {
+    character_name: string;
+    character_class: string;
+    player_id: string; 
+}
+
 interface Campaign {
     name: string;
     description: string;
+    players: Player[];
 }
 
 export default function CampaignPlayer({ params }: { params: { code: string } }) {
@@ -42,7 +49,7 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
                 try {
                     const response = await api.get(`/campaign/${code}`); 
                     setCampaign(response.data.data.campaign)// Faz a requisição para obter os detalhes da campanha
-                    setLoading(false); // Define o loading como falso quando os dados forem carregados
+                    setLoading(false); 
                 } catch (error) {
                     console.error('Erro ao buscar a campanha:', error);
                     setLoading(false);
@@ -61,6 +68,11 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
     if (!campaign) {
         return <div>Campanha não encontrada.</div>; // Exibe uma mensagem caso não encontre a campanha
     }
+
+    // Encontra o personagem do usuário logado
+    const myPlayer = campaign.players?.find(
+        (player) => player.player_id === session.data?.user?.id
+    );
 
     const handleChatBotToggle = () => {
         setIsChatBotVisible(prev => !prev); // Alterna a visibilidade do ChatBot
@@ -87,12 +99,16 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
                     </div>
                 </Card>
                 <div className="flex flex-col space-y-4 w-full">
-                    <Button className="w-full justify-between">
+                <Button className="w-full justify-between">
                         <div className="flex items-center gap-x-6 text-[#191919]">
-                        <div className="w-14 h-14 rounded-full bg-black"></div>
-                        <div className="flex flex-col text-[#191919] w-full h-full justify-center">
-                                <h2 className="text-2xl text-[#191919] text-left font-grenze">Nome do Personagem</h2>
-                                <p className="text-base text-[#191919] text-left font-crimson font-normal">Race Class | Level ##</p>
+                            <div className="w-20 h-12 rounded-full bg-black"></div>
+                            <div className="flex flex-col text-[#191919] w-full h-full justify-center">
+                                <h2 className="text-2xl text-[#191919] text-left font-grenze">
+                                    {myPlayer?.character_name || 'Nome do Personagem'}
+                                </h2>
+                                <p className="text-base text-[#191919] text-left font-crimson font-normal">
+                                    {myPlayer?.character_class || 'Class'}
+                                </p>
                             </div>
                         </div>
                     </Button>
