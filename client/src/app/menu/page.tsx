@@ -8,6 +8,14 @@ import { Card } from 'components/ui/card';
 import ModalJoinCampaign from 'components/modal/ModalJoinCampaign';
 import api from "services/api"; 
 
+interface Campaign {
+  id: string;
+  name: string;
+  system_rpg: string;
+  is_master: boolean;
+  code: string;
+}
+
 export default function Menu() {
   const session = useSession();
   const router = useRouter();
@@ -41,7 +49,8 @@ export default function Menu() {
     setIsOpen(false);
   };
 
-  const handleCardClick = (campaign: any) => {
+
+  const handleCardClick = (campaign: Campaign) => {
     // Verifique se o usuário é o mestre e redirecione conforme necessário
     if (campaign.is_master) {
       router.push(`/campaign/master/${campaign.code}`);  
@@ -55,13 +64,13 @@ export default function Menu() {
       <Header />
       <div className="mt-[80px] py-[32px]">
         <h1 className="flex justify-between items-center text-[#191919] font-bold font-grenze text-[40px]"> 
-         // Suas Campanhas
+        //  Suas Campanhas
         </h1>
       </div>
 
       <div className="grid grid-cols-2 grid-flow-row gap-8">
         {campaigns.length > 0 ? (
-          campaigns.map((campaign: any) => (
+          campaigns.map((campaign: Campaign) => (
             <Maincard
               key={campaign.id}
               campaignName={campaign.name}

@@ -3,7 +3,7 @@ from bcrypt import checkpw
 from sqlalchemy.orm import Session
 import crud, schema, dependencies
 import crud.chat as crud
-import ai_assistant_wiki_guide 
+import services.ai_assistant_wiki_guide as ai_assistant_wiki_guide 
 
 
 router = APIRouter()

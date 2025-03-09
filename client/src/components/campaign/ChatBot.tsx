@@ -57,7 +57,7 @@ const ChatBot = React.forwardRef<
             key={index}
             className={`p-3 rounded-lg break-words ${
               message.isUser
-                ? 'ml-auto bg-blue-500 text-white'
+                ? 'ml-auto bg-[#f3d477] text-black'
                 : 'mr-auto bg-gray-100 dark:bg-gray-800'
             }`}
             style={{
