@@ -32,6 +32,8 @@ class Campaign(Base):
 class CampaignPlayer(Base):
     __tablename__ = "campaign_players"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    character_name = Column(String, nullable=False)  # Nome do personagem
+    character_class = Column(String, nullable=False)  # Classe do personagem
     campaign_id = Column(UUID(as_uuid=True), ForeignKey("campaigns.id"))
     campaign = relationship("Campaign", back_populates="players")  
     player_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))

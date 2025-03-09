@@ -2,7 +2,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { RectangleHorizontal } from 'lucide-react';
-import ModalLogin from 'components/modalLogin';
+import ModalLogin from 'components/modal/ModalLogin';
 
 const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false); 

@@ -1,8 +1,9 @@
 from sqlalchemy.orm import Session
+from fastapi import HTTPException
 import schema
 import random
 import string
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from models import Campaign, User, CampaignPlayer
 from uuid import uuid4
 
@@ -41,6 +42,8 @@ def create_campaign(db: Session, campaign: schema.CampaignCreate, user_email: st
     campaign_player = CampaignPlayer(
         campaign_id=db_campaign.id,
         player_id=user.id,
+        character_name="Mestre",
+        character_class="Mestre",
         is_master=1,  # O usuário é o mestre da campanha
         is_player=0  
     )
@@ -51,8 +54,60 @@ def create_campaign(db: Session, campaign: schema.CampaignCreate, user_email: st
 
     return db_campaign
 
+#Função para pegar as campanhas do usuário
 def get_campaign_by_user(db: Session, user_id: str):
     return db.query(Campaign).filter(Campaign.user_id == user_id).all()
 
+#Função para obter a campanha pelo código
 def get_campaign_by_code(db: Session, code: str):
-    return db.query(Campaign).filter(Campaign.code == code).first()
+    return (
+        db.query(Campaign)
+        .filter(Campaign.code == code)
+        .options(joinedload(Campaign.players)) 
+        .first()
+    )
+
+#Função para validar código da campanha e usuário
+def validate_campaign(db: Session, validate: schema.ValidateCampaign):
+   # Obter a campanha com base no código
+    campaign = get_campaign_by_code(db, validate.code)
+    if not campaign:
+        raise HTTPException(status_code=404, detail="Campanha não encontrada")
+
+
+    # Obter o usuário com base no email
+    user = db.query(User).filter(User.email == validate.user_email).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+    print(user)
+
+#Função para entrar na campanha
+def join_campaign(db: Session, join: schema.JoinCampaign):
+    # Obter a campanha com base no código
+    campaign = get_campaign_by_code(db, join.code)
+    if not campaign:
+        raise ValueError("Campanha não encontrada")
+
+    # Obter o usuário com base no email
+    user = db.query(User).filter(User.email == join.user_email).first()
+    if not user:
+        raise ValueError("Usuário não encontrado")
+
+    # Verificar se o usuário já está na campanha
+    campaign_player = db.query(CampaignPlayer).filter(CampaignPlayer.campaign_id == campaign.id, CampaignPlayer.player_id == user.id).first()
+    if campaign_player:
+        raise ValueError("Usuário já está na campanha")
+
+    # Criar um jogador
+    campaign_player = CampaignPlayer(
+        campaign_id=campaign.id,
+        player_id=user.id,
+        character_name=join.character_name,
+        character_class=join.character_class,
+        is_master=0,
+        is_player=1
+    )
+
+    # Adicionar à sessão e salvar o jogador
+    db.add(campaign_player)
+    db.commit()

@@ -1,41 +1,43 @@
-'use client';
+'use client'
 
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation';
-import { CampaignPanel } from 'components/campaign/CampaignPanel';
+import { useEffect, useState } from 'react';
+import { CampaignPanel } from 'components/campaign/CampaignPanel'
 import { Button } from 'components/ui/button';
-import { Card } from 'components/ui/card';
 import { ChatBot } from 'components/campaign/ChatBot';
-import PlayerList from 'components/campaign/CampaignPlayersCard';
+import { Card } from 'components/ui/card';
+import api from 'services/api'; 
+
 
 import { 
-    CircleUserRound,
     NotebookPen,
     BookMarked,
     Dices,
     Bot
 } from 'lucide-react';
-import api from 'services/api';
 import { Header } from 'components';
+
+interface Player {
+    character_name: string;
+    character_class: string;
+    player_id: string; 
+}
 
 interface Campaign {
     name: string;
-    image: string;
-    code: string;
     description: string;
+    players: Player[];
 }
 
-export default function CampaignMaster({ params }: { params: { code: string } }) {
+export default function CampaignPlayer({ params }: { params: { code: string } }) {
+    const session = useSession();
     const { code } = params;  
 
-    const session = useSession();
-
     const [campaign, setCampaign] = useState<Campaign | null>(null); // Estado para armazenar as informações da campanha
+    const [isChatBotVisible, setIsChatBotVisible] = useState(false);
     const [loading, setLoading] = useState(true); 
-    const [isChatBotVisible, setIsChatBotVisible] = useState(false); 
-    const [isPlayersVisible, setPlayersVisible] = useState(false);
-
+    
     useEffect(() => {
         if (session.status === 'unauthenticated') {
             redirect('/');
@@ -47,7 +49,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                 try {
                     const response = await api.get(`/campaign/${code}`); 
                     setCampaign(response.data.data.campaign)// Faz a requisição para obter os detalhes da campanha
-                    setLoading(false); // Define o loading como falso quando os dados forem carregados
+                    setLoading(false); 
                 } catch (error) {
                     console.error('Erro ao buscar a campanha:', error);
                     setLoading(false);
@@ -58,51 +60,56 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         }
     }, [session.status, code]);
 
-    console.log(campaign)
-
     // Exibe um loading até os dados da campanha serem carregados
     if (loading) {
         return <div>Carregando...</div>;
     }
 
     if (!campaign) {
-        return <div>Campanha não encontrada.</div>; 
+        return <div>Campanha não encontrada.</div>; // Exibe uma mensagem caso não encontre a campanha
     }
 
+    // Encontra o personagem do usuário logado
+    const myPlayer = campaign.players?.find(
+        (player) => player.player_id === session.data?.user?.id
+    );
+
     const handleChatBotToggle = () => {
-        setIsChatBotVisible(prev => !prev);
-        setPlayersVisible(false); 
-    };
-    const handlePlayersToggle = () => {
-        setPlayersVisible(prev => !prev); 
-        setIsChatBotVisible(false);
+        setIsChatBotVisible(prev => !prev); // Alterna a visibilidade do ChatBot
     };
 
+
     return (
-        <div>   
+        <div>
 
         <Header />
         <div className="grid grid-cols-3 grid-rows-[48px_1fr] gap-y-8 gap-x-16 w-full px-40 pt-28 pb-[72px] h-full">
             <div className="col-span-3 row-start-1 h-full flex items-center justify-start">
-                <span className="font-grenze font-bold text-[40px] leading-[1.2]">
-                    {campaign?.name || 'Nome da campanha não encontrado'}
+                <span className="font-grenze font-bold text-[40px] text-[#191919] leading-[1.2] ">
+                {campaign?.name || 'Nome da campanha não encontrado'}
                 </span>
             </div>
             <div className="col-span-1 row-start-2 flex flex-col items-center">
                 <Card className="w-full p-6 shadow-lg mb-4">
                     <div className="text-xl font-semibold font-crimson text-gray-700">
-                        Código da Campanha
+                        Descrição da Campanha
                     </div>
                     <div className="text-2xl font-bold font-crimson text-gray-900 mt-2">
-                        {campaign?.code}
+                        {campaign?.description}
                     </div>
                 </Card>
                 <div className="flex flex-col space-y-4 w-full">
-                    <Button className="w-full justify-between"
-                    onClick={handlePlayersToggle}>
-                        <div className="flex items-center gap-x-6">
-                            <CircleUserRound className="h-5" />
-                            Fichas dos Personagens
+                <Button className="w-full justify-between">
+                        <div className="flex items-center gap-x-6 text-[#191919]">
+                            <div className="w-20 h-12 rounded-full bg-black"></div>
+                            <div className="flex flex-col text-[#191919] w-full h-full justify-center">
+                                <h2 className="text-2xl text-[#191919] text-left font-grenze">
+                                    {myPlayer?.character_name || 'Nome do Personagem'}
+                                </h2>
+                                <p className="text-base text-[#191919] text-left font-crimson font-normal">
+                                    {myPlayer?.character_class || 'Class'}
+                                </p>
+                            </div>
                         </div>
                     </Button>
                     <Button className="w-full justify-between">
@@ -123,10 +130,8 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                             Rolar Dados
                         </div>
                     </Button>
-                    <Button 
-                        className="w-full justify-between"
-                        onClick={handleChatBotToggle} // Altera o estado de visibilidade do ChatBot
-                    >
+                    <Button className="w-full justify-between"
+                            onClick={handleChatBotToggle}>
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <Bot className="h-5 text-[#191919]" />
                             Chatbot
@@ -136,9 +141,9 @@ export default function CampaignMaster({ params }: { params: { code: string } })
             </div>
             <CampaignPanel className="col-span-2">
                 {isChatBotVisible && <ChatBot />}
-                {isPlayersVisible && <PlayerList code={code} />}
-            </CampaignPanel>
+
+                </CampaignPanel>
         </div>
-        </div>
-    );
+    </div>
+    )
 }
