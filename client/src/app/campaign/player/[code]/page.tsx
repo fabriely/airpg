@@ -8,6 +8,7 @@ import { Button } from 'components/ui/button';
 import { ChatBot } from 'components/campaign/ChatBot';
 import { Card } from 'components/ui/card';
 import api from 'services/api'; 
+import { connectWebSocket } from 'services/ws';
 
 
 import { 
@@ -29,8 +30,28 @@ interface Campaign {
     description: string;
     players: Player[];
 }
+const playSound = () => {
+    const audio = new Audio('/notification.mp3'); // Caminho do som
+    audio.play();
+    setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+    }, 8000); 
+};
 
 export default function CampaignPlayer({ params }: { params: { code: string } }) {
+
+    useEffect(() => {
+        const socket = connectWebSocket((message) => {
+            if (message === "new_image") {
+                playSound(); // Toca som quando uma nova imagem é gerada
+            }
+        });
+
+        return () => socket.close(); // Fecha o WebSocket ao sair da página
+    }, []);
+
+
     const session = useSession();
     const { code } = params;  
 

@@ -1,9 +1,9 @@
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, HTTPException
-from pydantic import ValidationError
+from fastapi import FastAPI
 from sqlalchemy import create_engine
 from models import Base
 from routes import users, campaigns, chats
+from typing import List
 
 DATABASE_URL = "sqlite:///./test.db"
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
@@ -12,6 +12,7 @@ engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
 
 # CORS configuration to allow frontend requisitions
 app.add_middleware(
