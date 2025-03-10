@@ -21,10 +21,10 @@ async def chat(request: schema.ChatRequest, db: Session = Depends(dependencies.g
 @router.post("/generate-image", response_model=schema.ImageResponse)
 async def generate_image(request: schema.ChatRequest, db: Session = Depends(dependencies.get_db)):
     # Gerar a imagem com base no conteúdo
-    bot_response = chat_image.wiki_image(request.content)  # Usando a função wiki_image diretamente
-    
-    # Verificar se a resposta é uma imagem válida (base64 ou URL)
-    if bot_response.startswith("data:image") or bot_response.startswith("http"):
+    bot_response = chat_image.wiki_image(request.content)  
+    if bot_response:
+        # Salvar a mensagem no banco de dados
+        # crud.create_chat_message(db, request.content, bot_response)
         return {"image_url": bot_response}
     
     # Caso a resposta não seja uma imagem válida, lançar exceção

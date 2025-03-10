@@ -18,7 +18,6 @@ system_prompt = (
 )
 
 def wiki_image(text: str) -> str:
-    print(text)
     
     # Criar um prompt adequado para a OpenAI
     final_prompt = f"{system_prompt}\nUsuário: {text}"
@@ -31,4 +30,4 @@ def wiki_image(text: str) -> str:
         n=1,
     )
 
-    print(response.data[0].url)
+    return response.data[0].url

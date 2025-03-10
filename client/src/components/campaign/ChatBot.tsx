@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { CampaignPanel } from 'components/campaign/CampaignPanel';
 import { Textarea } from 'components/ui/textarea';
@@ -14,7 +15,7 @@ const ChatBot = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const [inputValue, setInputValue] = useState('');
-  const [messages, setMessages] = useState<Array<{ content: string; isUser: boolean }>>([]);
+  const [messages, setMessages] = useState<Array<{ content: React.ReactNode; isUser: boolean }>>([]);
   const [selectedOption, setSelectedOption] = useState('Ajuda por texto');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -35,11 +36,17 @@ const ChatBot = React.forwardRef<
       try {
         const endpoint = selectedOption === 'Ajuda por texto' ? '/chat' : '/generate-image';
         const response = await api.post(endpoint, { content: inputValue });
-
+  
         if (selectedOption === 'Ajuda por texto') {
           setMessages(prev => [...prev, { content: response.data.bot_response, isUser: false }]);
-        } else{
-          setMessages(prev => [...prev, { content: response.data.image_url, isUser: false }]);
+        } else {
+          // Verifica se o conteúdo é uma URL de imagem
+          const imageUrl = response.data.image_url;
+
+          setMessages(prev => [
+            ...prev,
+            { content: <Image src={imageUrl} alt="Generated" layout="responsive" width={10} height={10} />, isUser: false }
+          ]);
         }
       } catch (error) {
         setMessages(prev => [...prev, { content: "Erro ao conectar com o servidor.", isUser: false }]);
@@ -47,6 +54,7 @@ const ChatBot = React.forwardRef<
       setInputValue('');
     }
   };
+  
 
   return (
     <CampaignPanel 

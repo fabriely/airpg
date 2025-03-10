@@ -58,8 +58,6 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         }
     }, [session.status, code]);
 
-    console.log(campaign)
-
     // Exibe um loading até os dados da campanha serem carregados
     if (loading) {
         return <div>Carregando...</div>;
