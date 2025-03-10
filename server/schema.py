@@ -74,4 +74,5 @@ class ChatResponse(BaseModel):
     bot_response: str
     created_at: datetime
 
-
+class ImageResponse(BaseModel):
+    image_url: str 

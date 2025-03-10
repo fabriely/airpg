@@ -10,6 +10,8 @@ dependencies = [
     "fastapi[standard]>=0.115.8",
     "google-genai>=1.2.0",
     "google-generativeai>=0.8.4",
+    "openai>=1.65.5",
+    "pillow>=11.1.0",
     "sqlalchemy>=2.0.38",
 ]
 

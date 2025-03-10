@@ -10,3 +10,5 @@ def create_chat_message(db: Session, user_message: str, bot_response: str):
 
 def get_chat_history(db: Session, limit: int = 10):
     return db.query(ChatMessage).order_by(ChatMessage.created_at.desc()).limit(limit).all()
+
+
