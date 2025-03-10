@@ -45,7 +45,7 @@ const ChatBot = React.forwardRef<
 
           setMessages(prev => [
             ...prev,
-            { content: <Image src={imageUrl} alt="Generated" layout="responsive" width={10} height={10} />, isUser: false }
+            { content: <Image src={imageUrl} alt="Generated"  width={256} height={256} />, isUser: false }
           ]);
         }
       } catch (error) {
