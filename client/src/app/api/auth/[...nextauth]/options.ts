@@ -45,7 +45,7 @@ export const nextAuthOptions: NextAuthOptions = {
 
         if (user) {
           return {
-            id: user.id, // Garante que o ID está presente
+            id: user.id, 
             name: user.name,
             email: user.email,
             image: user.image
@@ -62,14 +62,14 @@ export const nextAuthOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.user = user as CustomUser; // Define explicitamente o tipo do usuário
+        token.user = user as CustomUser; 
       }
       return token;
     },
 
     async session({ session, token }) {
       if (token.user) {
-        session.user = token.user; // Agora TypeScript reconhece que `id` existe
+        session.user = token.user; 
       }
       return session;
     }
