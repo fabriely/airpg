@@ -17,40 +17,44 @@ import {
 } from 'components/ui/dropdown-menu';
 
 type PdfOption = 'Player' | 'Monster' | 'Master';
-interface PdfReaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface PdfReaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  master?: boolean;
+}
 
 const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, master = false, ...props }, ref) => {
     const [selectedPdf, setSelectedPdf] = React.useState<PdfOption>('Player');
     
-    const fileUrl = `/pdf/${selectedPdf}.pdf`;
+    const fileUrl = master ? `/pdf/${selectedPdf}.pdf` : '/pdf/Player.pdf';
 
-    const renderToolbar = (Toolbar: (props: ToolbarProps) => ReactElement) => (
+    const renderToolbar = (Toolbar: (props: any) => React.ReactElement) => (
       <>
-          <Toolbar />
+        <Toolbar />
+        {master && (
           <div className="w-full flex">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="px-2 py-1 bg-accent text-accent-foreground rounded-md hover:bg-accent/80 transition-colors">
-              Selecionar Livro
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {(['Player', 'Monster', 'Master'] as PdfOption[]).map((option) => (
-                <DropdownMenuItem
-                  key={option}
-                  onSelect={() => setSelectedPdf(option)}
-                >
-                  {option}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="px-2 py-1 bg-accent text-accent-foreground rounded-md hover:bg-accent/80 transition-colors">
+                Selecionar Livro
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {(['Player', 'Monster', 'Master'] as PdfOption[]).map((option) => (
+                  <DropdownMenuItem
+                    key={option}
+                    onSelect={() => setSelectedPdf(option)}
+                  >
+                    {option}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )}
       </>
-  );
+    );
   
-  const defaultLayoutPluginInstance = defaultLayoutPlugin({
+    const defaultLayoutPluginInstance = defaultLayoutPlugin({
       renderToolbar,
-  });
+    });
 
     return (
       <CampaignPanel 
