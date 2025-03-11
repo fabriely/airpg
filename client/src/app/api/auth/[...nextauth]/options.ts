@@ -1,6 +1,6 @@
 import { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { DefaultSession, JWT } from "next-auth";
+import { DefaultSession } from "next-auth";
 import api from 'services/api';
 
 // Definição de um tipo para o usuário autenticado
@@ -33,7 +33,7 @@ export const nextAuthOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email' }
       },
 
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const response = await api.post('/sessions', {
           id: credentials?.id,
           username: credentials?.username,
