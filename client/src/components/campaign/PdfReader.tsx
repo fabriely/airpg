@@ -9,6 +9,7 @@ import { Viewer } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import type { ToolbarProps } from '@react-pdf-viewer/toolbar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,7 +28,7 @@ const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
     
     const fileUrl = master ? `/pdf/${selectedPdf}.pdf` : '/pdf/Player.pdf';
 
-    const renderToolbar = (Toolbar: (props: any) => React.ReactElement) => (
+    const renderToolbar = (Toolbar: React.ComponentType<ToolbarProps>) => (
       <>
         <Toolbar />
         {master && (
