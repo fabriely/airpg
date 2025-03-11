@@ -173,7 +173,7 @@ export default function Login() {
               </div>
             </div>                    
             <div className="grid gap-2 text-[#70b055] text-center">
-              <a className="w-full text-xs">Clique em "Enviar" para receber o código por email</a>
+              <a className="w-full text-xs">Clique em &quot;Enviar&quot; para receber o código por email</a>
             </div>
             <CardFooter>
               <Button 
