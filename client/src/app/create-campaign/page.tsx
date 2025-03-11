@@ -74,7 +74,7 @@ export default function CreateCampaign() {
         <div className="min-h-screen flex justify-center items-start gap-4 bg-[#f2f2f2] p-4 md:p-8">
             <Card className="flex-1 w-full max-w-xl border-0 bg-[#f2f2f2]">
                 <CardHeader>
-                    <CardTitle className="text-5xl text-black font-grenze">// Criação de Campanha</CardTitle>
+                    <CardTitle className="text-5xl text-black font-grenze">-- Criação de Campanha</CardTitle>
                 </CardHeader>
                 <CardContent className="grid gap-4">
                     <div className="border-4 border-orange-500 relative w-full aspect-video overflow-hidden rounded">
