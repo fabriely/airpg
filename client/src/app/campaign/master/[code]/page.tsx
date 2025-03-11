@@ -8,6 +8,7 @@ import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
 import { ChatBot } from 'components/campaign/ChatBot';
 import PlayerList from 'components/campaign/CampaignPlayersCard';
+import { RollDice } from 'components/campaign/RollDice';
 
 import { 
     CircleUserRound,
@@ -35,6 +36,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
     const [loading, setLoading] = useState(true); 
     const [isChatBotVisible, setIsChatBotVisible] = useState(false); 
     const [isPlayersVisible, setPlayersVisible] = useState(false);
+    const [isDiceVisible, setIsDiceVisible] = useState(false);
 
     useEffect(() => {
         if (session.status === 'unauthenticated') {
@@ -71,11 +73,18 @@ export default function CampaignMaster({ params }: { params: { code: string } })
 
     const handleChatBotToggle = () => {
         setIsChatBotVisible(prev => !prev);
-        setPlayersVisible(false); 
+        setPlayersVisible(false);
+        setIsDiceVisible(false); 
     };
     const handlePlayersToggle = () => {
         setPlayersVisible(prev => !prev); 
         setIsChatBotVisible(false);
+        setIsDiceVisible(false);
+    };
+    const handleDiceToggle = () => {
+        setIsDiceVisible(prev => !prev);
+        setIsChatBotVisible(false);
+        setPlayersVisible(false);
     };
 
     return (
@@ -117,14 +126,15 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                             Livros de Regra
                         </div>
                     </Button>
-                    <Button className="w-full justify-between">
+                    <Button className="w-full justify-between"
+                        onClick={handleDiceToggle} // Altera o estado de visibilidade dos dados
+                    >
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <Dices className="h-5 text-[#191919]" />
                             Rolar Dados
                         </div>
                     </Button>
-                    <Button 
-                        className="w-full justify-between"
+                    <Button className="w-full justify-between"
                         onClick={handleChatBotToggle} // Altera o estado de visibilidade do ChatBot
                     >
                         <div className="flex items-center gap-x-6 text-[#191919]">
@@ -137,6 +147,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
             <CampaignPanel className="col-span-2">
                 {isChatBotVisible && <ChatBot />}
                 {isPlayersVisible && <PlayerList code={code} />}
+                {isDiceVisible && <RollDice />}
             </CampaignPanel>
         </div>
         </div>
