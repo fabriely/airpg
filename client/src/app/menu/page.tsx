@@ -76,7 +76,6 @@ export default function Menu() {
               systemRPG={campaign.system_rpg}
               is_master={campaign.is_master}
               onClick={() => handleCardClick(campaign)}
-              className="col-span-1" 
             />
           ))
         ) : (

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from 'components/ui/card';
-import { cn } from 'lib/utils';
 
-interface MaincardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MaincardProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   campaignName: string;
   systemRPG: string;
@@ -10,8 +9,8 @@ interface MaincardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Maincard = React.forwardRef<HTMLDivElement, MaincardProps>(
-  ({ campaignName, systemRPG, is_master, onClick, className, ...props }, ref) => (
-    <div ref={ref} className={cn(className)} {...props}>
+  ({ campaignName, systemRPG, is_master, onClick, ...props }, ref) => (
+    <div ref={ref} className='col-span-1' {...props}>
       <button 
       onClick={onClick}
       className='flex flex-col  w-full h-full bg-[#191919] shadow-[4px_4px_4px_hsla(0, 0, 0, 25%)] rounded-2xl bg-clip-content'>
