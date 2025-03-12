@@ -42,6 +42,7 @@ export const nextAuthOptions: NextAuthOptions = {
         });
 
         const { user } = response.data.data;
+    
 
         if (user) {
           return {

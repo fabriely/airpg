@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { CampaignPanel } from 'components/campaign/CampaignPanel';
 import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
+import { PdfReader } from 'components/campaign/PdfReader';
 import { ChatBot } from 'components/campaign/ChatBot';
 import PlayerList from 'components/campaign/CampaignPlayersCard';
 
@@ -19,12 +20,25 @@ import {
 import api from 'services/api';
 import { Header } from 'components';
 
+interface Player {
+    character_name: string;
+    character_class: string;
+    player_id: string; 
+    is_master: boolean;
+}
+
 interface Campaign {
     name: string;
     image: string;
     code: string;
     description: string;
+    players: Player[];
 }
+
+const isUserMaster = (campaign: Campaign, userId: string): boolean => {
+    const player = campaign.players.find(player => player.player_id === userId);
+    return player ? player.is_master : false;
+};
 
 export default function CampaignMaster({ params }: { params: { code: string } }) {
     const { code } = params;  
@@ -35,6 +49,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
     const [loading, setLoading] = useState(true); 
     const [isChatBotVisible, setIsChatBotVisible] = useState(false); 
     const [isPlayersVisible, setPlayersVisible] = useState(false);
+    const [isRolesVisible, setRolesVisible] = useState(false);
 
     useEffect(() => {
         if (session.status === 'unauthenticated') {
@@ -58,8 +73,6 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         }
     }, [session.status, code]);
 
-    console.log(campaign)
-
     // Exibe um loading até os dados da campanha serem carregados
     if (loading) {
         return <div>Carregando...</div>;
@@ -72,11 +85,19 @@ export default function CampaignMaster({ params }: { params: { code: string } })
     const handleChatBotToggle = () => {
         setIsChatBotVisible(prev => !prev);
         setPlayersVisible(false); 
+        setRolesVisible(false);
+
     };
     const handlePlayersToggle = () => {
         setPlayersVisible(prev => !prev); 
         setIsChatBotVisible(false);
+        setRolesVisible(false);
     };
+    const handleRolesToggle = () => {
+        setRolesVisible(prev => !prev);
+        setPlayersVisible(false);
+        setIsChatBotVisible(false);
+    }
 
     return (
         <div>   
@@ -111,7 +132,8 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                             Livro de Anotações
                         </div>
                     </Button>
-                    <Button className="w-full justify-between">
+                    <Button className="w-full justify-between"
+                        onClick={handleRolesToggle}>
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <BookMarked className="h-5 text-[#191919]" />
                             Livros de Regra
@@ -135,6 +157,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                 </div>
             </div>
             <CampaignPanel className="col-span-2">
+                {isRolesVisible && <PdfReader master={isUserMaster(campaign, session.data?.user?.id || '')}/>}
                 {isChatBotVisible && <ChatBot />}
                 {isPlayersVisible && <PlayerList code={code} />}
             </CampaignPanel>
