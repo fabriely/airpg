@@ -1,10 +1,11 @@
-from pydantic import BaseModel
 from pydantic import BaseModel, constr, field_validator
 from uuid import UUID
 
+# Definindo o schema de base do usuário
 class UserBase(BaseModel):
     email: str
-    
+
+# Definindo o schema para a criação de um usuário
 class UserCreate(UserBase):
     password: constr(min_length=8)
     username: str
@@ -18,13 +19,49 @@ class UserCreate(UserBase):
         return v
 
 
-
-class CampaignCreate(BaseModel):
+# Definindo o schema base para a campanha
+class CampaignBase(BaseModel):
     name: str
     system_rpg: str
     description: str
-    user_email: str  # Adiciona o campo user_email
-    
+
     class Config:
-        orm_mode = True  # Isso é necessário para que o Pydantic converta os dados para o modelo ORM
+        orm_mode = True
+
+class CampaignCreate(CampaignBase):
+    user_email: str
+
+# Definindo a campanha no banco
+class Campaign(CampaignBase):
+    id: UUID
+    user_id: UUID
+    code: str
+
+
+    class Config:
+        orm_mode = True
+
+class CampaignPlayerBase(BaseModel):
+    campaign_id: UUID
+    player_id: UUID
+    character_name: str
+    character_class: str
+    is_master: bool
+    is_player: bool
+
+    class Config:
+        orm_mode = True
+
+class JoinCampaign(BaseModel):
+    code: str
+    user_email: str
+    character_name: str
+    character_class: str
+
+
+class ValidateCampaign(BaseModel):
+    code: str
+    user_email: str
+
+
 
