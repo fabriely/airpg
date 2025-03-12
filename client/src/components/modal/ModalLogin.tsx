@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { FC, useState } from 'react';
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -21,11 +21,12 @@ interface ModalLoginProps {
 
 
 const ModalLogin: FC<ModalLoginProps> = ({ isOpen, onClose }) => {
-    if (!isOpen) return null; // Se não estiver aberto, não renderiza o modal
-    const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  
+  if (!isOpen) return null; // Se não estiver aberto, não renderiza o modal
     
     const handleSubmit = async(e: { preventDefault: () => void; }) => {
         e.preventDefault();
