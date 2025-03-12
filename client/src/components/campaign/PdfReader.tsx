@@ -20,9 +20,9 @@ import {
 type PdfOption = { label: string; value: string };
 
 const pdfOptions: PdfOption[] = [
-  { label: 'Player Handbook', value: 'Player' },
-  { label: 'Monster Manual', value: 'Monster' },
-  { label: 'Master Guide', value: 'Master' },
+  { label: "Player's Handbook", value: 'Player' },
+  { label: "Monster Manual", value: 'Monster' },
+  { label: "Dungeon Master's Guide", value: 'Master' },
 ];
 
 interface PdfReaderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -32,7 +32,7 @@ interface PdfReaderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
   ({ className, master = false, ...props }, ref) => {
-    const [selectedPdf, setSelectedPdf] = React.useState<PdfOption>({ label: 'Player Handbook', value: 'Player' });
+    const [selectedPdf, setSelectedPdf] = React.useState<PdfOption>({ label: "Player's Handbook", value: 'Player' });
     console.log(master)
     
     const fileUrl = master ? `/pdf/${selectedPdf.value}.pdf` : '/pdf/Player.pdf';
@@ -54,11 +54,11 @@ const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
         {...props}
       >
         
-        <div className="w-full h-[600px] overflow">
+        <div className="w-full h-[600px] overflow mb-2">
           <div className="w-full h-full">
 
               {master && (
-                  <div className="w-full flex">
+                  <div className="w-full flex mb-2">
                     <DropdownMenu>
                       <DropdownMenuTrigger className="px-2 py-1 bg-accent text-accent-foreground rounded-md hover:bg-accent/80 transition-colors">
                         {selectedPdf.label}
