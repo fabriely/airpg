@@ -17,7 +17,14 @@ import {
   DropdownMenuTrigger,
 } from 'components/ui/dropdown-menu';
 
-type PdfOption = 'Player' | 'Monster' | 'Master';
+type PdfOption = { label: string; value: string };
+
+const pdfOptions: PdfOption[] = [
+  { label: 'Player Handbook', value: 'Player' },
+  { label: 'Monster Manual', value: 'Monster' },
+  { label: 'Master Guide', value: 'Master' },
+];
+
 interface PdfReaderProps extends React.HTMLAttributes<HTMLDivElement> {
   master?: boolean;
 }
@@ -25,15 +32,14 @@ interface PdfReaderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
   ({ className, master = false, ...props }, ref) => {
-    const [selectedPdf, setSelectedPdf] = React.useState<PdfOption>('Player');
+    const [selectedPdf, setSelectedPdf] = React.useState<PdfOption>({ label: 'Player Handbook', value: 'Player' });
     console.log(master)
     
-    const fileUrl = master ? `/pdf/${selectedPdf}.pdf` : '/pdf/Player.pdf';
+    const fileUrl = master ? `/pdf/${selectedPdf.value}.pdf` : '/pdf/Player.pdf';
 
     const renderToolbar = (Toolbar: React.ComponentType<ToolbarProps>) => (
       <>
         <Toolbar />
-       
       </>
     );
   
@@ -55,15 +61,15 @@ const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
                   <div className="w-full flex">
                     <DropdownMenu>
                       <DropdownMenuTrigger className="px-2 py-1 bg-accent text-accent-foreground rounded-md hover:bg-accent/80 transition-colors">
-                        Selecionar Livro
+                        {selectedPdf.label}
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        {(['Player', 'Monster', 'Master'] as PdfOption[]).map((option) => (
+                        {pdfOptions.map((option) => (
                           <DropdownMenuItem
-                            key={option}
+                            key={option.label}
                             onSelect={() => setSelectedPdf(option)}
                           >
-                            {option}
+                            {option.label}
                           </DropdownMenuItem>
                         ))}
                       </DropdownMenuContent>
