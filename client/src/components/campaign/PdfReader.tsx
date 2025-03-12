@@ -22,34 +22,18 @@ interface PdfReaderProps extends React.HTMLAttributes<HTMLDivElement> {
   master?: boolean;
 }
 
+
 const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
   ({ className, master = false, ...props }, ref) => {
     const [selectedPdf, setSelectedPdf] = React.useState<PdfOption>('Player');
+    console.log(master)
     
     const fileUrl = master ? `/pdf/${selectedPdf}.pdf` : '/pdf/Player.pdf';
 
     const renderToolbar = (Toolbar: React.ComponentType<ToolbarProps>) => (
       <>
         <Toolbar />
-        {master && (
-          <div className="w-full flex">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="px-2 py-1 bg-accent text-accent-foreground rounded-md hover:bg-accent/80 transition-colors">
-                Selecionar Livro
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {(['Player', 'Monster', 'Master'] as PdfOption[]).map((option) => (
-                  <DropdownMenuItem
-                    key={option}
-                    onSelect={() => setSelectedPdf(option)}
-                  >
-                    {option}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        )}
+       
       </>
     );
   
@@ -63,8 +47,29 @@ const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
         className={cn("flex flex-col items-center p-1 gap-16", className)}
         {...props}
       >
-        <div className="w-full h-[600px] overflow-auto">
+        
+        <div className="w-full h-[600px] overflow">
           <div className="w-full h-full">
+
+              {master && (
+                  <div className="w-full flex">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="px-2 py-1 bg-accent text-accent-foreground rounded-md hover:bg-accent/80 transition-colors">
+                        Selecionar Livro
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        {(['Player', 'Monster', 'Master'] as PdfOption[]).map((option) => (
+                          <DropdownMenuItem
+                            key={option}
+                            onSelect={() => setSelectedPdf(option)}
+                          >
+                            {option}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                )}
               <Worker workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`}>
                   <Viewer 
                       fileUrl={fileUrl}

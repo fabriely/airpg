@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as pdfjsLib from 'pdfjs-dist';
-import { CampaignPanel } from 'components/ui/campaign-panel';
+import { CampaignPanel } from 'components/campaign/CampaignPanel';
 import { cn } from 'lib/utils';
 import { Worker } from '@react-pdf-viewer/core';
 import { Viewer } from '@react-pdf-viewer/core';
