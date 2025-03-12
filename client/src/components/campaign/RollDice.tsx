@@ -1,19 +1,15 @@
 'use client';
 
 import * as React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { CampaignPanel } from 'components/campaign/CampaignPanel';
-import { Textarea } from 'components/ui/textarea';
-import { Button } from 'components/ui/button';
-import { Send } from 'lucide-react';
 import { Label } from 'components/ui/label';
-import { cn } from 'lib/utils';
 import { Input } from 'components/ui/input';
 
 const RollDice = React.forwardRef<
     HTMLDivElement,
     React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+>(({ ...props }, ref) => {
     const [diceQnt, setDiceQnt] = useState(1);
     const [diceSides, setDiceSides] = useState(20);
     const [bonus, setBonus] = useState(0);
