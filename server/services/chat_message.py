@@ -1,17 +1,19 @@
 import os
-from google import genai
-from google.genai import types
+from openai import OpenAI
 from dotenv import load_dotenv
 
+# Load .env environment variables
 load_dotenv()
 
-class AIAssistantWikiGuide:
-    client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-
-    # System Prompt is good so far, but may be refined further.
-    system_prompt = """
-
-                    You should only answer questions about the three rulebooks for the 5th Edition of D&D: Player's Handbook, Dungeon Master's 
+client = OpenAI(
+    api_key=os.getenv("OPEN_API_KEY"),
+)
+# System Prompt is good so far, but may be refined further.
+system_prompt = {
+        "role": "system",
+        "content": """You are a guide for the three rulebooks for the 5th Edition of D&D: Player's Handbook, Dungeon Master's Guide, and 
+                    Monster Manual. You are an expert on the rules and mechanics of the game and can answer any questions related to these 
+                    rulebooks. You are knowledgeable about the various classes.  You should only answer questions about the three rulebooks for the 5th Edition of D&D: Player's Handbook, Dungeon Master's 
                     Guide, and Monster Manual. If asked any questions about other topics, respond with "I not able to answer that. But I'm 
                     happy to help with any questions about the D&D rulebooks!". Respond the question in the language of the query. The output 
                     should be in the following format:
@@ -100,14 +102,14 @@ class AIAssistantWikiGuide:
                     --------------------------------------------------
                     Here's where you find the information in the Monster Manual: Page 241 under the "Black Pudding" section.
                     """
+    }
 
-    def wiki_guide(self, user_prompt: str) -> str:
-        try:
-            response = self.client.models.generate_content(
-                model="gemini-1.5-flash", 
-                contents=[user_prompt],
-                config=types.GenerateContentConfig(system_instruction=self.system_prompt)
-            )
-            return response.text
-        except Exception as e:
-            return f"An error occurred: {e}"
+def wiki_guide(text: str) -> str:
+        messages = [system_prompt, {"role": "user", "content": text}]
+
+        response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages
+        )
+
+        return response.choices[0].message.content

@@ -7,7 +7,6 @@ import services.chat_image as chat_image
 import asyncio
 
 router = APIRouter()
-chat_assistant = chat_message.AIAssistantWikiGuide()
 
 # Lista de conexões WebSocket ativas
 active_connections = []
@@ -32,6 +31,15 @@ async def notify_clients(message: str):
             await connection.send_text(message)
         except:
             active_connections.remove(connection)
+
+
+@router.post("/chat", response_model=schema.ChatResponse)
+async def chat(request: schema.ChatRequest, db: Session = Depends(dependencies.get_db)):
+     bot_response = chat_message.wiki_guide(request.content)
+     message = crud.create_chat_message(db, request.content, bot_response)
+     return message
+
+
 
 @router.post("/generate-image", response_model=schema.ImageResponse)
 async def generate_image(request: schema.ChatRequest, db: Session = Depends(dependencies.get_db)):
