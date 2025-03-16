@@ -24,29 +24,32 @@ export default function CreateCampaign() {
       redirect('/');
     }
     const router = useRouter();
-    const [showSystems, setShowSystems] = useState(false);
-    const [selectedSystem, setSelectedSystem] = useState<string | null | number>(null);
+    // const [showSystems, setShowSystems] = useState(false);
+    // const [selectedSystem, setSelectedSystem] = useState<string | null | number>(null);
     const [campaignName, setCampaignName] = useState('');
     const [campaignDescription, setCampaignDescription] = useState('');
 
-    const systems = [
-        { id: 1, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-        { id: 2, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-        { id: 3, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-        { id: 4, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-        { id: 5, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-        { id: 6, name: 'D&D', image: '/img/create-campaign-system-DeD.png' }
-    ];
+    // const systems = [
+    //     { id: 1, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
+    //     { id: 2, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
+    //     { id: 3, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
+    //     { id: 4, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
+    //     { id: 5, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
+    //     { id: 6, name: 'D&D', image: '/img/create-campaign-system-DeD.png' }
+    // ];
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (!campaignName || !selectedSystem || !campaignDescription) {
+        // if (!campaignName || !selectedSystem || !campaignDescription) {
+        if (!campaignName || !campaignDescription) {            
             alert("Por favor, preencha todos os campos obrigatórios.");
             return;
         }
         try {
             // Enviar dados para o backend
-            const selectedSystemName = systems.find(system => system.id === selectedSystem)?.name;
+            // único sistema será D&D
+            const selectedSystemName = 'D&D';
+            // const selectedSystemName = systems.find(system => system.id === selectedSystem)?.name;
             const response = await api.post('/newcampaign/', {
                 name: campaignName,
                 system_rpg: selectedSystemName,
@@ -56,7 +59,7 @@ export default function CreateCampaign() {
             if (response.status === 200) {
                 alert(`Campanha criada com sucesso! Bom jogo, mestre ${session.data?.user?.name}!`);
                 setCampaignName('');
-                setSelectedSystem(null);
+                // setSelectedSystem(null);
                 setCampaignDescription('');
                 router.replace("/menu")
 
@@ -99,10 +102,10 @@ export default function CreateCampaign() {
                         />
                     </div>
 
-                    <Button onClick={() => setShowSystems(prev => !prev)} type="button" className="w-full flex justify-between items-center text-xl">
+                    {/* <Button onClick={() => setShowSystems(prev => !prev)} type="button" className="w-full flex justify-between items-center text-xl">
                         <span>Selecionar Sistema de RPG</span>
                         <ArrowRight size={20} />
-                    </Button>
+                    </Button> */}
 
                     <div className="grid gap-2 bg-[#f2f2f2]">
                         <Label htmlFor="description" className="text-black font-crimson font-bold text-xl">Sinopse da Campanha</Label>
@@ -118,11 +121,12 @@ export default function CreateCampaign() {
                 </CardContent>
 
                 <CardFooter>
-                    <Button variant="destructive" type="submit" onClick={handleSubmit} className="mx-auto w-fit px-8">Criar Campanha</Button>
+                <Button variant="destructive" onClick={() => router.push('/menu')} className="mx-auto w-fit px-8 bg-gradient-to-r from-[#666666] to-[#333333] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#999999] hover:to-[#555555]">Cancelar</Button>
+                <Button variant="destructive" type="submit" onClick={handleSubmit} className="mx-auto w-fit px-8 bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]">Criar Campanha</Button>
                 </CardFooter>
             </Card>
 
-            {showSystems && (
+            {/* {showSystems && (
                 <Card className="flex-1 w-full max-w-2xl border-0 mt-8 md:mt-20">
                     <div className="bg-red-800 p-8 rounded-lg">
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -153,7 +157,7 @@ export default function CreateCampaign() {
                         </div>
                     </div>
                 </Card>
-            )}
+            )} */}
         </div>
     );
 }
