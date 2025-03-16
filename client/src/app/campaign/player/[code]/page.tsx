@@ -23,6 +23,7 @@ interface Player {
     character_name: string;
     character_class: string;
     player_id: string; 
+    is_master: boolean;
 }
 
 interface Campaign {
@@ -86,12 +87,8 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
         return <div>Carregando...</div>;
     }
 
-    if (!campaign) {
-        return <div>Campanha não encontrada.</div>; // Exibe uma mensagem caso não encontre a campanha
-    }
-
     // Encontra o personagem do usuário logado
-    const myPlayer = campaign.players?.find(
+    const myPlayer = campaign?.players?.find(
         (player) => player.player_id === session.data?.user?.id
     );
 
@@ -161,9 +158,8 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
                 </div>
             </div>
             <CampaignPanel className="col-span-2">
-                {isChatBotVisible && <ChatBot />}
-
-                </CampaignPanel>
+          {isChatBotVisible && <ChatBot isMaster={!!myPlayer?.is_master} />}
+            </CampaignPanel>
         </div>
     </div>
     )

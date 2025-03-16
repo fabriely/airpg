@@ -4,6 +4,7 @@ import crud, schema, dependencies
 import crud.chat as crud
 import services.chat_message as chat_message
 import services.chat_image as chat_image
+import services.chat_message_player as chat_message_player
 import asyncio
 
 router = APIRouter()
@@ -39,6 +40,11 @@ async def chat(request: schema.ChatRequest, db: Session = Depends(dependencies.g
      message = crud.create_chat_message(db, request.content, bot_response)
      return message
 
+@router.post("/chat-player", response_model=schema.ChatResponse)
+async def chat_player(request: schema.ChatRequest, db: Session = Depends(dependencies.get_db)):
+    bot_response = chat_message_player.wiki_guide_player(request.content)
+    message = crud.create_chat_message(db, request.content, bot_response)
+    return message
 
 
 @router.post("/generate-image", response_model=schema.ImageResponse)

@@ -133,7 +133,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                 </div>
             </div>
             <CampaignPanel className="col-span-2">
-                {isChatBotVisible && <ChatBot />}
+                {isChatBotVisible && <ChatBot isMaster={true}/>}
                 {isPlayersVisible && <PlayerList code={code} />}
             </CampaignPanel>
         </div>
