@@ -24,19 +24,8 @@ export default function CreateCampaign() {
       redirect('/');
     }
     const router = useRouter();
-    // const [showSystems, setShowSystems] = useState(false);
-    // const [selectedSystem, setSelectedSystem] = useState<string | null | number>(null);
     const [campaignName, setCampaignName] = useState('');
     const [campaignDescription, setCampaignDescription] = useState('');
-
-    // const systems = [
-    //     { id: 1, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-    //     { id: 2, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-    //     { id: 3, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-    //     { id: 4, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-    //     { id: 5, name: 'D&D', image: '/img/create-campaign-system-DeD.png' },
-    //     { id: 6, name: 'D&D', image: '/img/create-campaign-system-DeD.png' }
-    // ];
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -102,11 +91,6 @@ export default function CreateCampaign() {
                         />
                     </div>
 
-                    {/* <Button onClick={() => setShowSystems(prev => !prev)} type="button" className="w-full flex justify-between items-center text-xl">
-                        <span>Selecionar Sistema de RPG</span>
-                        <ArrowRight size={20} />
-                    </Button> */}
-
                     <div className="grid gap-2 bg-[#f2f2f2]">
                         <Label htmlFor="description" className="text-black font-crimson font-bold text-xl">Sinopse da Campanha</Label>
                         <Textarea
@@ -125,39 +109,6 @@ export default function CreateCampaign() {
                 <Button variant="destructive" type="submit" onClick={handleSubmit} className="mx-auto w-fit px-8 bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]">Criar Campanha</Button>
                 </CardFooter>
             </Card>
-
-            {/* {showSystems && (
-                <Card className="flex-1 w-full max-w-2xl border-0 mt-8 md:mt-20">
-                    <div className="bg-red-800 p-8 rounded-lg">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                            {systems.map((system) => (
-                                <Button
-                                    key={system.id}
-                                    type="button"
-                                    onClick={() => setSelectedSystem(system.id)}
-                                    className={`h-64 relative group p-0 overflow-hidden border-4
-                                    ${selectedSystem === system.id ? 'border-orange-500' : 'border-gray-300'}`}
-                                >
-                                    <div className="absolute inset-0">
-                                        <Image
-                                            src={system.image}
-                                            alt={system.name}
-                                            fill
-                                            className="object-cover transform group-hover:scale-105 transition-transform"
-                                            quality={100}
-                                        />
-                                    </div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
-                                        <span className="text-white font-bold text-2xl drop-shadow-xl">
-                                            {system.name}
-                                        </span>
-                                    </div>
-                                </Button>
-                            ))}
-                        </div>
-                    </div>
-                </Card>
-            )} */}
         </div>
     );
 }
