@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import api from "../services/api";
 
 // Esquema de validação para o email
 export const emailSchema = z

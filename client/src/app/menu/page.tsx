@@ -49,7 +49,6 @@ export default function Menu() {
     setIsOpen(false);
   };
 
-
   const handleCardClick = (campaign: Campaign) => {
     // Verifique se o usuário é o mestre e redirecione conforme necessário
     if (campaign.is_master) {
@@ -64,7 +63,7 @@ export default function Menu() {
       <Header />
       <div className="mt-[80px] py-[32px]">
         <h1 className="flex justify-between items-center text-[#191919] font-bold font-grenze text-[40px]"> 
-        //  Suas Campanhas
+         -- Suas Campanhas
         </h1>
       </div>
 
@@ -77,7 +76,6 @@ export default function Menu() {
               systemRPG={campaign.system_rpg}
               is_master={campaign.is_master}
               onClick={() => handleCardClick(campaign)}
-              className="col-span-1" 
             />
           ))
         ) : (
