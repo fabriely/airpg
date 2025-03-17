@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { Header } from "components/index";
 import { Button } from 'components/ui/button';
 import {
   Card,
@@ -99,7 +100,8 @@ export default function Login() {
 
   return (
     <div className="flex flex-1 flex-col h-full justify-around items-center bg-[#F2F2F2] text-black">
-      <Card className="w-full max-w-sm bg-white shadow-2xl">
+      <Header />
+      <Card className="mt-[80px] w-full max-w-sm bg-white shadow-2xl">
         <CardHeader className='text-center'>
           <CardTitle className="font-crimson text-3xl text-black font-bold">Cadastro</CardTitle>
           <CardDescription className='font-crimson text-md font-bold text-center'>
