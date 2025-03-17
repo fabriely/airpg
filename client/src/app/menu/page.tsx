@@ -79,7 +79,7 @@ export default function Menu() {
           ))}
 
         <div>
-          <Card className="flex justify-center items-center w-full h-[200px] bg-[#E3E3E3] shadow-lg col-span-1 col-start-4 rounded-2xl">
+          <Card className="flex justify-center items-center w-full h-full bg-[#E3E3E3] shadow-lg col-span-1 col-start-4 rounded-2xl">
             <div className="flex flex-col justify-between items-center w-full h-full px-4 py-4 gap-4">
               <button onClick={openModal} className="w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]">
                 Entrar Em Uma Campanha
