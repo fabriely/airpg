@@ -96,18 +96,18 @@ export default function Login() {
 
 
   return (
-    <div className="flex flex-1 flex-col h-full justify-around items-center bg-white text-black">
+    <div className="flex flex-1 flex-col h-full justify-around items-center bg-[#F2F2F2] text-black">
       <Card className="w-full max-w-sm bg-white  shadow-2xl">
         <CardHeader className='text-center'>
-          <CardTitle className="text-2xl text-black font-bold">Cadastro</CardTitle>
-          <CardDescription>Insira seus dados abaixo para se cadastrar</CardDescription>
+          <CardTitle className="font-crimson text-3xl text-black font-bold">Cadastro</CardTitle>
+          <CardDescription className='font-crimson text-md font-bold text-center'>Insira seus dados abaixo para se cadastrar</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 text-black">
           <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2">
-              <Label className='font-bold' htmlFor="email">Nome Usuário</Label>
+              <Label className='font-crimson text-lg font-semibold' htmlFor="email">Nome Usuário</Label>
               <Input 
-                className='bg-[#e3e3e3] text-black'
+                className='font-crimson text-md bg-[#E3E3E3] shadow-[inset_5px_5px_10px_rgba(0,0,0,0.1)]'
                 id="nameUser"
                 type="string"
                 placeholder="Digite seu nome"
@@ -117,9 +117,9 @@ export default function Login() {
               />
             </div>
             <div className="grid gap-2">
-              <Label className='font-bold' htmlFor="email">Email</Label>
+              <Label className='font-crimson text-lg font-semibold' htmlFor="email">Email</Label>
               <Input 
-                className='bg-[#e3e3e3] text-black'
+                className='font-crimson text-md bg-[#E3E3E3] shadow-[inset_5px_5px_10px_rgba(0,0,0,0.1)]'
                 id="email"
                 type="email"
                 placeholder="exemplo@email.com"
@@ -129,11 +129,11 @@ export default function Login() {
               />
             </div>
             <div className="grid gap-2">
-              <Label className='font-bold' htmlFor="password">Senha</Label>
+              <Label className='font-crimson text-lg font-semibold' htmlFor="password">Senha</Label>
               <Input 
                 id="password" 
                 type="password" 
-                className='bg-[#e3e3e3]' 
+                className='font-crimson text-md bg-[#E3E3E3] shadow-[inset_5px_5px_10px_rgba(0,0,0,0.1)]' 
                 required
                 placeholder="Digite sua senha"
                 value={password}
@@ -141,11 +141,11 @@ export default function Login() {
               />
             </div>
             <div className="grid gap-2">
-              <Label className='font-bold' htmlFor="password2">Confirmar Senha</Label>
+              <Label className='font-crimson text-lg font-semibold' htmlFor="password2">Confirmar Senha</Label>
               <Input 
                 id="password2" 
                 type="password" 
-                className='bg-[#e3e3e3]' 
+                className='font-crimson text-md bg-[#E3E3E3] shadow-[inset_5px_5px_10px_rgba(0,0,0,0.1)]' 
                 required
                 placeholder="Confirme sua senha"
                 value={password2}
@@ -153,15 +153,15 @@ export default function Login() {
               />
             </div>   
             {errorMessage && (
-              <div className="text-red-500 text-xs text-center">{errorMessage}</div>
+              <div className="text-red-500 font-crimson text-md font-bold text-center">{errorMessage}</div>
             )}       
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <Label className='font-bold' htmlFor="verification">Código de Verificação</Label>
+                <Label className='font-crimson text-base font-semibold' htmlFor="verification">Código de Verificação</Label>
                 <Input 
                   id="verification" 
                   type="text" 
-                  className='bg-[#e3e3e3]' 
+                  className='font-crimson text-md bg-[#E3E3E3] shadow-[inset_5px_5px_10px_rgba(0,0,0,0.1)]' 
                   required 
                   placeholder="Insira o código"
                   value={verificationCode}
@@ -169,16 +169,16 @@ export default function Login() {
                 />
               </div>
               <div className='flex items-end'>
-                <Button id="verificationButton" className="w-full h-[41px] rounded-[8px]">Enviar</Button>
+                <Button id="verificationButton" className="tittle font-crimson font-bold text-lg w-full h-[41px] rounded-[8px]">Enviar</Button>
               </div>
             </div>                    
             <div className="grid gap-2 text-[#70b055] text-center">
-              <a className="w-full text-xs">Clique em &quot;Enviar&quot; para receber o código por email</a>
+              <a className="font-crimson text-sm font-bold w-full">Clique em &quot;Enviar&quot; para receber o código por email</a>
             </div>
             <CardFooter>
               <Button 
                 type="submit" 
-                className={`w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919] ${isFormValid() ? '' : 'opacity-50 cursor-not-allowed'}`}
+                className={`title w-full font-crimson font-bold text-xl bg-gradient-to-r from-[#B81414] to-[#8A0F0F] text-[#F2F2F2] text-[20px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919] px-8 py-5 h-9 ${isFormValid() ? '' : 'opacity-50 cursor-not-allowed'}`}
                 disabled={!isFormValid()}
               >
                 Cadastrar-se
