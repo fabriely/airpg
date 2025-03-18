@@ -4,10 +4,8 @@ import Image from 'next/image';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
-import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { User } from 'lucide-react';
-import { useRouter, redirect } from 'next/navigation';
 import {
     Card,
     CardContent,
@@ -15,7 +13,6 @@ import {
     CardTitle,
     CardFooter
 } from 'components/ui/card';
-import api from 'services/api';
 
 interface Character {
     name: string;
@@ -40,11 +37,7 @@ interface Character {
 }
 
 export default function CharacterSheet() {
-    // const session = useSession();
-    // if (session.status === 'unauthenticated') {
-    //   redirect('/');
-    // }
-    const router = useRouter();
+
     const [character, setCharacter] = useState({
         name: '',
         classLevel: '',
@@ -67,11 +60,11 @@ export default function CharacterSheet() {
         characterImage: null
     });
 
-    const handleChange = (field: keyof Character, value: string) => {
+    const handleChange = <T extends keyof Character>(field: T, value: Character[T]) => {
         setCharacter({ ...character, [field]: value });
     };
 
-    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async () => {
             // e.preventDefault();
             // if (!character) {
             //     alert("Por favor, preencha todos os campos obrigatórios.");
@@ -156,7 +149,7 @@ export default function CharacterSheet() {
                                     <Input
                                         id={attr}
                                         type="number"
-                                        value={character[attr as keyof Character]}
+                                        value={character[attr as keyof Character] ?? ""}
                                         onChange={(e) => handleChange(attr as keyof Character, e.target.value)}
                                         className="w-full"
                                     />
