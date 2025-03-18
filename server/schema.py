@@ -1,6 +1,7 @@
 from pydantic import BaseModel, constr, field_validator
 from uuid import UUID
 from datetime import datetime
+from typing import Dict, Any
 
 # Definindo o schema de base do usuário
 class UserBase(BaseModel):
@@ -76,3 +77,7 @@ class ChatResponse(BaseModel):
 
 class ImageResponse(BaseModel):
     image_url: str 
+
+class NotebookData(BaseModel):
+    email: str
+    content: Dict[str, Any]

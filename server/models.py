@@ -1,5 +1,5 @@
 # app/models.py
-from sqlalchemy import Column, String, Integer, Text, ForeignKey, DateTime
+from sqlalchemy import Column, String, Integer, Text, ForeignKey, DateTime, func, JSON
 from datetime import datetime
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy.dialects.postgresql import UUID
@@ -15,7 +15,8 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     password = Column(String)
     campaigns = relationship("Campaign", back_populates="user")  
-    players = relationship("CampaignPlayer", back_populates="player")  
+    players = relationship("CampaignPlayer", back_populates="player")
+    notebook = relationship("Notebook", back_populates="user")  
 
 class Campaign(Base):
     __tablename__ = "campaigns"
@@ -50,3 +51,13 @@ class ChatMessage(Base):
     user_message = Column(Text, nullable=False)
     bot_response = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class Notebook(Base):
+    __tablename__ = "notebooks"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    content = Column(JSON)
+    created_at = Column(DateTime, default=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+    user = relationship("User", back_populates="notebook")

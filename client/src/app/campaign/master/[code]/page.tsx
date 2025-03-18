@@ -10,6 +10,7 @@ import { PdfReader } from 'components/campaign/PdfReader';
 import { ChatBot } from 'components/campaign/ChatBot';
 import PlayerList from 'components/campaign/CampaignPlayersCard';
 import { RollDice } from 'components/campaign/RollDice';
+import RichTextEditor from 'components/rich-text-editor/RichTextEditor';
 
 import { 
     CircleUserRound,
@@ -50,6 +51,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
     const [loading, setLoading] = useState(true); 
     const [isChatBotVisible, setIsChatBotVisible] = useState(false); 
     const [isPlayersVisible, setPlayersVisible] = useState(false);
+    const [isJournalVisible, setJournalVisible] = useState(false);
     const [isDiceVisible, setIsDiceVisible] = useState(false);
     const [isRolesVisible, setRolesVisible] = useState(false);
 
@@ -90,22 +92,33 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         setIsDiceVisible(false); 
         setPlayersVisible(false); 
         setRolesVisible(false);
-
+        setJournalVisible(false);
     };
     const handlePlayersToggle = () => {
         setPlayersVisible(prev => !prev); 
         setIsChatBotVisible(false);
         setIsDiceVisible(false);
         setRolesVisible(false);
+        setJournalVisible(false);
     };
     const handleDiceToggle = () => {
         setIsDiceVisible(prev => !prev);
         setIsChatBotVisible(false);
         setPlayersVisible(false);
         setRolesVisible(false);
+        setJournalVisible(false);
     };
     const handleRolesToggle = () => {
         setRolesVisible(prev => !prev);
+        setPlayersVisible(false);
+        setIsChatBotVisible(false);
+        setIsDiceVisible(false);
+        setJournalVisible(false);
+    }
+
+    const handleJournalToggle = () => {
+        setJournalVisible(prev => !prev);
+        setRolesVisible(false);
         setPlayersVisible(false);
         setIsChatBotVisible(false);
         setIsDiceVisible(false);
@@ -138,7 +151,8 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                             Fichas dos Personagens
                         </div>
                     </Button>
-                    <Button className="w-full justify-between">
+                    <Button className="w-full justify-between"
+                        onClick={handleJournalToggle}>
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <NotebookPen className="h-5 text-[#191919]" />
                             Livro de Anotações
@@ -173,6 +187,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                 {isRolesVisible && <PdfReader master={isUserMaster(campaign, session.data?.user?.id || '')}/>}
                 {isChatBotVisible && <ChatBot isMaster={true}/>}
                 {isPlayersVisible && <PlayerList code={code} />}
+                {isJournalVisible && <RichTextEditor />}
                 {isDiceVisible && <RollDice />}
             </CampaignPanel>
         </div>
