@@ -59,17 +59,16 @@ export default function Menu() {
   };
 
   return (
-    <div className="bg-[#F2F2F2] w-full h-full px-[160px]">
+    <div className="bg-[#F2F2F2] w-full h-full px-[160px] -mt-[80px]">
       <Header />
-      <div className="mt-[80px] py-[32px]">
+      <div className="mt-[160px] py-[32px]">
         <h1 className="flex justify-between items-center text-[#191919] font-bold font-grenze text-[40px]"> 
-         -- Suas Campanhas
+        Suas Campanhas
         </h1>
       </div>
 
-      <div className="grid grid-cols-2 grid-flow-row gap-8">
-        {campaigns.length > 0 ? (
-          campaigns.map((campaign: Campaign) => (
+      <div className="grid grid-cols-4 grid-flow-row gap-8">
+        {campaigns.map((campaign: Campaign) => (
             <Maincard
               key={campaign.id}
               campaignName={campaign.name}
@@ -77,30 +76,27 @@ export default function Menu() {
               is_master={campaign.is_master}
               onClick={() => handleCardClick(campaign)}
             />
-          ))
-        ) : (
-          <p className="col-span-2">Nenhuma campanha encontrada.</p>
-        )}
-      </div>
+          ))}
 
-      <div className="mt-8">
-        <Card className="flex justify-center items-center w-full h-full bg-[#E3E3E3] shadow-lg col-span-1 col-start-4 rounded-2xl">
-      <div className="flex flex-col justify-between items-center w-full h-full px-4 py-4 gap-4">
-            <button onClick={openModal} className="w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]">
-              Entrar Em Uma Campanha
-            </button>
-            <button onClick={() => router.push('/create-campaign')} className="w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]">
-              Criar Uma Nova Campanha
-            </button>
-          </div>
-        </Card>
+        <div>
+          <Card className="flex justify-center items-center w-full h-full bg-[#E3E3E3] shadow-lg col-span-1 col-start-4 rounded-2xl">
+            <div className="flex flex-col justify-between items-center w-full h-full px-4 py-4 gap-4">
+              <button onClick={openModal} className="w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]">
+                Entrar Em Uma Campanha
+              </button>
+              <button onClick={() => router.push('/create-campaign')} className="w-full h-full bg-gradient-to-r from-[#B81414] to-[#8A0F0F] font-crimson font-bold text-[#F2F2F2] text-[20px] rounded-[8px] hover:bg-gradient-to-r hover:from-[#EB4747] hover:to-[#E51919]">
+                Criar Uma Nova Campanha
+              </button>
+            </div>
+          </Card>
+        </div>
+          
+        <ModalJoinCampaign
+          isOpen={isOpen}
+          closeModal={closeModal}
+          userEmail={session.data?.user?.email ?? ''}
+          />
       </div>
-        
-      <ModalJoinCampaign
-        isOpen={isOpen}
-        closeModal={closeModal}
-        userEmail={session.data?.user?.email ?? ''}
-      />
     </div>
   );
 }
