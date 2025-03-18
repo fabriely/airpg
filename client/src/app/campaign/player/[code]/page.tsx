@@ -9,6 +9,7 @@ import { ChatBot } from 'components/campaign/ChatBot';
 import { Card } from 'components/ui/card';
 import { RollDice } from 'components/campaign/RollDice';
 import api from 'services/api'; 
+import { connectWebSocket } from 'services/ws';
 
 
 import { 
@@ -23,6 +24,7 @@ interface Player {
     character_name: string;
     character_class: string;
     player_id: string; 
+    is_master: boolean;
 }
 
 interface Campaign {
@@ -30,8 +32,28 @@ interface Campaign {
     description: string;
     players: Player[];
 }
+const playSound = () => {
+    const audio = new Audio('/notification.mp3'); // Caminho do som
+    audio.play();
+    setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+    }, 8000); 
+};
 
 export default function CampaignPlayer({ params }: { params: { code: string } }) {
+
+    useEffect(() => {
+        const socket = connectWebSocket((message) => {
+            if (message === "new_image") {
+                playSound(); // Toca som quando uma nova imagem é gerada
+            }
+        });
+
+        return () => socket.close(); // Fecha o WebSocket ao sair da página
+    }, []);
+
+
     const session = useSession();
     const { code } = params;  
 
@@ -67,12 +89,8 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
         return <div>Carregando...</div>;
     }
 
-    if (!campaign) {
-        return <div>Campanha não encontrada.</div>; // Exibe uma mensagem caso não encontre a campanha
-    }
-
     // Encontra o personagem do usuário logado
-    const myPlayer = campaign.players?.find(
+    const myPlayer = campaign?.players?.find(
         (player) => player.player_id === session.data?.user?.id
     );
 
@@ -150,9 +168,9 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
                 </div>
             </div>
             <CampaignPanel className="col-span-2">
-                {isChatBotVisible && <ChatBot />}
-                {isDiceVisible && <RollDice />}
-                </CampaignPanel>
+              {isChatBotVisible && <ChatBot isMaster={!!myPlayer?.is_master} />}
+              {isDiceVisible && <RollDice />}
+            </CampaignPanel>
         </div>
     </div>
     )

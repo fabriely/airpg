@@ -171,7 +171,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
             </div>
             <CampaignPanel className="col-span-2">
                 {isRolesVisible && <PdfReader master={isUserMaster(campaign, session.data?.user?.id || '')}/>}
-                {isChatBotVisible && <ChatBot />}
+                {isChatBotVisible && <ChatBot isMaster={true}/>}
                 {isPlayersVisible && <PlayerList code={code} />}
                 {isDiceVisible && <RollDice />}
             </CampaignPanel>

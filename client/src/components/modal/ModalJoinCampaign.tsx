@@ -29,7 +29,6 @@ const ModalJoinCampaign: FC<ModalProps> = ({ isOpen, closeModal, userEmail }) =>
             const response = await api.post('/validate-campaign/', {
                code, user_email: userEmail 
             });
-            console.log(response.data);
             
             const data = response.data
 
