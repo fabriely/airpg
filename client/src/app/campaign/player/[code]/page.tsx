@@ -7,6 +7,7 @@ import { CampaignPanel } from 'components/campaign/CampaignPanel'
 import { Button } from 'components/ui/button';
 import { ChatBot } from 'components/campaign/ChatBot';
 import { Card } from 'components/ui/card';
+import { RollDice } from 'components/campaign/RollDice';
 import api from 'services/api'; 
 import { connectWebSocket } from 'services/ws';
 
@@ -57,8 +58,9 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
     const { code } = params;  
 
     const [campaign, setCampaign] = useState<Campaign | null>(null); // Estado para armazenar as informações da campanha
-    const [isChatBotVisible, setIsChatBotVisible] = useState(false);
     const [loading, setLoading] = useState(true); 
+    const [isChatBotVisible, setIsChatBotVisible] = useState(false);
+    const [isDiceVisible, setIsDiceVisible] = useState(false);
     
     useEffect(() => {
         if (session.status === 'unauthenticated') {
@@ -94,6 +96,12 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
 
     const handleChatBotToggle = () => {
         setIsChatBotVisible(prev => !prev); // Alterna a visibilidade do ChatBot
+        setIsDiceVisible(false);
+    };
+
+    const handleDiceToggle = () => {
+        setIsDiceVisible(prev => !prev);
+        setIsChatBotVisible(false);
     };
 
 
@@ -142,7 +150,9 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
                             Livros de Regra
                         </div>
                     </Button>
-                    <Button className="w-full justify-between">
+                    <Button className="w-full justify-between"
+                       onClick={handleDiceToggle}
+                    >
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <Dices className="h-5 text-[#191919]" />
                             Rolar Dados
@@ -158,7 +168,8 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
                 </div>
             </div>
             <CampaignPanel className="col-span-2">
-          {isChatBotVisible && <ChatBot isMaster={!!myPlayer?.is_master} />}
+              {isChatBotVisible && <ChatBot isMaster={!!myPlayer?.is_master} />}
+              {isDiceVisible && <RollDice />}
             </CampaignPanel>
         </div>
     </div>
