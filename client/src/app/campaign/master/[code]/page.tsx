@@ -21,7 +21,6 @@ import {
 } from 'lucide-react';
 import api from 'services/api';
 import { Header } from 'components';
-import { set } from 'zod';
 
 interface Player {
     character_name: string;
