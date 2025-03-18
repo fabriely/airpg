@@ -1,8 +1,9 @@
 # app/crud.py
 from sqlalchemy.orm import Session
 from bcrypt import hashpw, gensalt
-from models import User
+from models import User, Notebook
 from sqlalchemy.orm import Session
+from typing import Dict, Any
 
 
 def create_user(db: Session, username: str, email: str, password: str):
@@ -24,6 +25,26 @@ def create_user(db: Session, username: str, email: str, password: str):
 def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
 
+def get_notebook_by_email(db: Session, email: str):
+    return (
+        db.query(Notebook)
+        .join(User)
+        .filter(User.email == email).first()
+    )
+    
+def save_notebook_by_email(db: Session, email: str, content: Dict[str, Any]):
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        return None
+    
+    notebook = db.query(Notebook).filter(Notebook.user_id == user.id).first()
+    if notebook:
+        notebook.content = content
+    else:
+        notebook = Notebook(user_id=user.id, content=content)
+        db.add(notebook)
+    
+    db.commit()
+    db.refresh(notebook)
 
-
-
+    return(notebook)

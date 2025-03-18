@@ -1,0 +1,92 @@
+.editor-container {
+    border: 2px solid #8B4513; /* Dark brown border */
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #F5DEB3; /* Parchment-like background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Depth shadow */
+  }
+  
+  .editor-input {
+    min-height: 200px;
+    outline: none;
+    background-color: #FAF0E6; /* Slightly lighter parchment color */
+    color: #4B2E2E; /* Dark brown text color */
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Times New Roman', Times, serif; /* Classic font */
+  }
+  
+  .editor-placeholder {
+    color: #8B4513; /* Dark brown placeholder text */
+  }
+  
+  .toolbar {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 5px;
+  }
+  
+  .toolbar button {
+    background-color: #8B4513; /* Dark brown button background */
+    color: #FAF0E6; /* Light text color */
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: 'Times New Roman', Times, serif; /* Classic font */
+  }
+  
+  .toolbar button.active {
+    background-color: #D2691E; /* More contrasted color for active state */
+  }
+  
+  .toolbar button:hover {
+    background-color: #A0522D; /* Slightly lighter brown on hover */
+  }
+  
+  .text-bold {
+    font-weight: bold;
+  }
+  
+  .text-italic {
+    font-style: italic;
+  }
+  
+  .text-underline {
+    text-decoration: underline;
+  }
+  
+  .text-strikethrough {
+    text-decoration: line-through;
+  }
+  
+  /* When both underline and strikethrough are active */
+  .text-underline.text-strikethrough {
+    text-decoration: underline line-through;
+  }
+  
+  /* Basic block element styling for headings */
+  .text-heading1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0.67em 0;
+  }
+  
+  .text-heading2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.75em 0;
+  }
+  
+  /* List styles (optional customization) */
+  .editor-input ul {
+    list-style-type: disc;
+    margin: 0 0 0 1em;
+    padding-left: 0.5em;
+  }
+  
+  .editor-input ol {
+    list-style-type: decimal;
+    margin: 0 0 0 1em;
+    padding-left: 0.5em;
+  }

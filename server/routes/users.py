@@ -26,3 +26,17 @@ async def get_user(email: str, db: Session = Depends(dependencies.get_db)):
     if user:
         return {"data": {"user": user}}
     raise HTTPException(status_code=404, detail="User not found")
+
+@router.get("/notebook/")
+async def get_notebook(email: str, db: Session = Depends(dependencies.get_db)):
+    notebook = crud.get_notebook_by_email(db, email)
+    if not notebook:
+        return {"error": "Notebook not found"}
+    return {"content": notebook.content, "updated_at": notebook.updated_at}
+
+@router.post("/notebook/")
+async def save_notebook(data: schema.NotebookData, db: Session = Depends(dependencies.get_db)):
+    notebook = crud.save_notebook_by_email(db, data.email, data.content)
+    if not notebook:
+        return {"error": "User not found"}
+    return {"message": "Notebook saved successfully", "updated_at": notebook.updated_at}
