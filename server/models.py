@@ -1,7 +1,7 @@
 # app/models.py
-from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID, JSON
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
 
@@ -14,7 +14,8 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     password = Column(String)
     campaigns = relationship("Campaign", back_populates="user")  
-    players = relationship("CampaignPlayer", back_populates="player")  
+    players = relationship("CampaignPlayer", back_populates="player")
+    notebook = relationship("Notebook", back_populates="user")  
 
 class Campaign(Base):
     __tablename__ = "campaigns"
@@ -27,8 +28,6 @@ class Campaign(Base):
     code = Column(String, unique=True, index=True)
     players = relationship("CampaignPlayer", back_populates="campaign")  
 
-
-
 class CampaignPlayer(Base):
     __tablename__ = "campaign_players"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
@@ -40,3 +39,12 @@ class CampaignPlayer(Base):
     player = relationship("User", back_populates="players")  
     is_master = Column(Integer)
     is_player = Column(Integer)
+
+class Notebook(Base):
+    __tablename__ = "notebooks"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    content = Column(JSON)
+    created_at = Column(DateTime, default=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+    user = relationship("User", back_populates="notebook")

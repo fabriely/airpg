@@ -1,5 +1,6 @@
 from pydantic import BaseModel, constr, field_validator
 from uuid import UUID
+from typing import Dict, Any
 
 # Definindo o schema de base do usuário
 class UserBase(BaseModel):
@@ -17,7 +18,6 @@ class UserCreate(UserBase):
         if not any(char in '!@#$%^&*(),.?":{}|<>_-+=~`[]\\;\'/' for char in v):
             raise ValueError('A senha precisa ter pelo menos um caractere especial')
         return v
-
 
 # Definindo o schema base para a campanha
 class CampaignBase(BaseModel):
@@ -58,10 +58,11 @@ class JoinCampaign(BaseModel):
     character_name: str
     character_class: str
 
-
 class ValidateCampaign(BaseModel):
     code: str
     user_email: str
 
-
+class NotebookData(BaseModel):
+    email: str
+    content: Dict[str, Any]
 

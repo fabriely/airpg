@@ -7,6 +7,7 @@ import { CampaignPanel } from 'components/campaign/CampaignPanel';
 import { Button } from 'components/ui/button';
 import { Card } from 'components/ui/card';
 import { ChatBot } from 'components/campaign/ChatBot';
+import RichTextEditor from 'components/rich-text-editor/RichTextEditor';
 import PlayerList from 'components/campaign/CampaignPlayersCard';
 
 import { 
@@ -82,7 +83,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         <div>   
 
         <Header />
-        <div className="grid grid-cols-3 grid-rows-[48px_1fr] gap-y-8 gap-x-16 w-full px-40 pt-28 pb-[72px] h-full">
+        <div className="grid grid-cols-3 grid-rows-[48px_1fr] gap-y-8 gap-x-16 w-full h-screen px-40 pt-28 pb-[72px]">
             <div className="col-span-3 row-start-1 h-full flex items-center justify-start">
                 <span className="font-grenze font-bold text-[40px] leading-[1.2]">
                     {campaign?.name || 'Nome da campanha não encontrado'}
