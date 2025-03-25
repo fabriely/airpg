@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +9,7 @@
   :root {
     --font-grenze-gotisch: "Grenze Gotisch", sans-serif;
     --font-crimson-text: "Crimson Text", serif;
+    --font-rye: "Rye", serif;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
