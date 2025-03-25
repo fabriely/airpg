@@ -1,4 +1,4 @@
-const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://127.0.0.1:8000/ws"; 
+const WS_BASE_URL = process.env.NEXT_PUBLIC_API_URL_WS || "ws://127.0.0.1:8000/ws"; 
 
 export const connectWebSocket = (onMessage: (message: string) => void) => {
     const socket = new WebSocket(WS_BASE_URL);
