@@ -2,15 +2,11 @@
 
 import * as React from 'react';
 import { useState } from 'react';
-import { CampaignPanel } from 'components/campaign/CampaignPanel';
 import { Label } from 'components/ui/label';
 import { Input } from 'components/ui/input';
 import { Button } from 'components/ui/button';
 
-const RollDice = React.forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ ...props }, ref) => {
+const RollDice: React.FC = () => {
     const [diceQnt, setDiceQnt] = useState<string>('1');
     const [diceSides, setDiceSides] = useState(20);
     const [bonus, setBonus] = useState<string>('0');
@@ -99,11 +95,7 @@ const RollDice = React.forwardRef<
     };
 
     return (
-        <CampaignPanel
-            ref={ref}
-            className="flex flex-col max-h-[550px] w-full space-y-4"
-            {...props}
-        >
+        <div className="flex flex-col max-h-[606px] w-full h-full space-y-4">
             <div className="flex items-center space-x-8 space-y-4 align-middle justify-center -mt-8">
                 <div className="flex items-center space-x-6">
                     <Label className="font-crimson font-bold text-[16px] md:text-[20px] text-[#F2F2F2] mt-4">Dado:</Label>
@@ -216,7 +208,7 @@ const RollDice = React.forwardRef<
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col p-4 bg-[#e3e3e3] mb-4 rounded-lg min-w-0 min-h-[400px] gap-4">
+            <div className="flex flex-col p-4 bg-[#e3e3e3] mb-4 rounded-lg min-w-0 min-h-[400px] h-full gap-4">
                 {rollsChosen.map((roll, index) => (
                     <div
                         key={index}
@@ -259,9 +251,9 @@ const RollDice = React.forwardRef<
                 > Adicionar
                 </Button>
             </div>
-        </CampaignPanel>
+        </div>
     );
-});
+};
 
 RollDice.displayName = "RollDice";
 export { RollDice };

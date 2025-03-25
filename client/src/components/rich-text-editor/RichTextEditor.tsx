@@ -105,17 +105,19 @@ const RichTextEditor: React.FC = () => {
 
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div className="editor-container">
-        <ToolbarPlugin />
+      <div className="editor-container" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <ToolbarPlugin />
+      <div className="editor-input" style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', maxHeight: '538px' }}>
         <ListPlugin />
-        {initialContent && <InitialContentLoader content={initialContent} />}
+          {initialContent && <InitialContentLoader content={initialContent} />}
         <RichTextPlugin
-          contentEditable={<ContentEditable className="editor-input" />}
+          contentEditable={<ContentEditable className="editor-input" style={{ flex: 1 }} />}
           placeholder={null}
           ErrorBoundary={LexicalErrorBoundary}
         />
         <OnChangePlugin onChange={onChangeHandler} />
         <HistoryPlugin />
+      </div>
       </div>
     </LexicalComposer>
   );

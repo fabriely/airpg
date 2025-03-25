@@ -1,9 +1,7 @@
 "use client";
 
-import * as React from 'react';
+import React from 'react';
 import * as pdfjsLib from 'pdfjs-dist';
-import { CampaignPanel } from 'components/campaign/CampaignPanel';
-import { cn } from 'lib/utils';
 import { Worker } from '@react-pdf-viewer/core';
 import { Viewer } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
@@ -29,62 +27,52 @@ interface PdfReaderProps extends React.HTMLAttributes<HTMLDivElement> {
   master?: boolean;
 }
 
-
 const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
-  ({ className, master = false, ...props }, ref) => {
-    const [selectedPdf, setSelectedPdf] = React.useState<PdfOption>({ label: "Player's Handbook", value: 'Player' });
-    console.log(master)
-    
+  ({ master = false, ...props }, ref) => {
+    const [selectedPdf, setSelectedPdf] = React.useState<PdfOption>({
+      label: "Player's Handbook",
+      value: 'Player',
+    });
+  console.log(master);
+
     const fileUrl = master ? `/pdf/${selectedPdf.value}.pdf` : '/pdf/Player.pdf';
 
-    const renderToolbar = (Toolbar: React.ComponentType<ToolbarProps>) => (
-      <>
-        <Toolbar />
-      </>
-    );
-  
+    // Render the toolbar using the provided Toolbar component
+    const renderToolbar = (Toolbar: React.ComponentType<ToolbarProps>) => <Toolbar />;
     const defaultLayoutPluginInstance = defaultLayoutPlugin({
       renderToolbar,
     });
 
     return (
-      <CampaignPanel 
-        ref={ref}
-        className={cn("flex flex-col items-center p-1 gap-16", className)}
-        {...props}
-      >
-        
-        <div className="w-full h-[600px] overflow mb-2">
+      <div ref={ref} className="flex flex-col items-center max-h-[606px] h-full p-1 gap-16" {...props}>
+        <div className="w-full h-full overflow mb-2 relative">
+          {master ? (
+            <div className="absolute top-[48px] right-[24px] z-10">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="px-2 py-1 bg-accent font-crimson font-bold text-base text-accent-foreground rounded-md hover:bg-accent/80 transition-colors">
+                  {selectedPdf.label}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {pdfOptions.map((option) => (
+                    <DropdownMenuItem
+                      key={option.label}
+                      onSelect={() => setSelectedPdf(option)}
+                      className="font-crimson font-bold text-base text-accent-foreground hover:bg-accent/80 transition-colors"
+                    >
+                      {option.label}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : null}
           <div className="w-full h-full">
-
-              {master && (
-                  <div className="w-full flex mb-2">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger className="px-2 py-1 bg-accent text-accent-foreground rounded-md hover:bg-accent/80 transition-colors">
-                        {selectedPdf.label}
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {pdfOptions.map((option) => (
-                          <DropdownMenuItem
-                            key={option.label}
-                            onSelect={() => setSelectedPdf(option)}
-                          >
-                            {option.label}
-                          </DropdownMenuItem>
-                        ))}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                )}
-              <Worker workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`}>
-                  <Viewer 
-                      fileUrl={fileUrl}
-                      plugins={[defaultLayoutPluginInstance]}
-                  />
-              </Worker>
+            <Worker workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`}>
+              <Viewer fileUrl={fileUrl} plugins={[defaultLayoutPluginInstance]} />
+            </Worker>
           </div>
         </div>
-      </CampaignPanel>
+      </div>
     );
   }
 );

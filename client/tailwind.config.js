@@ -77,6 +77,7 @@ module.exports = {
       fontFamily: {
         crimson: ["Crimson Text", "serif"],
         grenze: ["Grenze Gotisch", "serif"],
+        rye: ["Rye", "serif"],
       },
     },
   },

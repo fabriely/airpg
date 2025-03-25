@@ -61,18 +61,12 @@ const ModalLogin: FC<ModalLoginProps> = ({ isOpen, onClose }) => {
     };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 flex justify-end items-center z-40 px-40">
       <Card className="w-full max-w-sm px-4 py-6 bg-white relative">
-        <button
-            onClick={onClose}
-            className="absolute top-2 right-2 text-black text-2xl font-bold"
-        >
-            &times;
-        </button>
         <CardHeader>
           <CardTitle className="font-crimson text-3xl flex justify-center">Login</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-8 pt-6">
+        <CardContent className="grid gap-4 pt-6">
           <div className="grid gap-2">
             <Label htmlFor="email" className="font-crimson text-lg font-semibold">Email</Label>
             <Input
@@ -81,7 +75,7 @@ const ModalLogin: FC<ModalLoginProps> = ({ isOpen, onClose }) => {
               className="font-crimson text-md bg-[#E3E3E3] shadow-[inset_5px_5px_10px_rgba(0,0,0,0.1)]"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="m@example.com"
+              placeholder="Insira seu email"
               required
             />
           </div>

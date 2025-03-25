@@ -11,7 +11,6 @@ import { ChatBot } from 'components/campaign/ChatBot';
 import PlayerList from 'components/campaign/CampaignPlayersCard';
 import { RollDice } from 'components/campaign/RollDice';
 import RichTextEditor from 'components/rich-text-editor/RichTextEditor';
-
 import { 
     CircleUserRound,
     NotebookPen,
@@ -21,6 +20,7 @@ import {
 } from 'lucide-react';
 import api from 'services/api';
 import { Header } from 'components';
+import background from 'assets/background.svg'; // Ensure your asset is imported
 
 interface Player {
     character_name: string;
@@ -44,10 +44,9 @@ const isUserMaster = (campaign: Campaign, userId: string): boolean => {
 
 export default function CampaignMaster({ params }: { params: { code: string } }) {
     const { code } = params;  
-
     const session = useSession();
 
-    const [campaign, setCampaign] = useState<Campaign | null>(null); // Estado para armazenar as informações da campanha
+    const [campaign, setCampaign] = useState<Campaign | null>(null);
     const [loading, setLoading] = useState(true); 
     const [isChatBotVisible, setIsChatBotVisible] = useState(false); 
     const [isPlayersVisible, setPlayersVisible] = useState(false);
@@ -60,8 +59,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
             redirect('/');
         }
 
-        // Verifica se o código foi obtido da URL
-        if (code) {
+                if (code) {
             const fetchCampaignData = async () => {
                 try {
                     const response = await api.get(`/campaign/${code}`); 
@@ -75,7 +73,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
 
             fetchCampaignData();
         }
-    }, [session.status, code]);
+    }, [session.status, code]);// Exibe um loading até os dados da campanha serem cars
 
     // Exibe um loading até os dados da campanha serem carregados
     if (loading) {
@@ -90,10 +88,10 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         setIsChatBotVisible(prev => !prev);
         setPlayersVisible(false);
         setIsDiceVisible(false); 
-        setPlayersVisible(false); 
         setRolesVisible(false);
         setJournalVisible(false);
     };
+
     const handlePlayersToggle = () => {
         setPlayersVisible(prev => !prev); 
         setIsChatBotVisible(false);
@@ -101,6 +99,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         setRolesVisible(false);
         setJournalVisible(false);
     };
+
     const handleDiceToggle = () => {
         setIsDiceVisible(prev => !prev);
         setIsChatBotVisible(false);
@@ -108,13 +107,14 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         setRolesVisible(false);
         setJournalVisible(false);
     };
+
     const handleRolesToggle = () => {
         setRolesVisible(prev => !prev);
         setPlayersVisible(false);
         setIsChatBotVisible(false);
         setIsDiceVisible(false);
         setJournalVisible(false);
-    }
+    };
 
     const handleJournalToggle = () => {
         setJournalVisible(prev => !prev);
@@ -122,11 +122,19 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         setPlayersVisible(false);
         setIsChatBotVisible(false);
         setIsDiceVisible(false);
-    }
+    };
 
     return (
-        <div>   
-
+        <div className="relative w-full h-full">
+            <div
+                className="absolute top-0 left-0 w-full h-full -z-10"
+                style={{
+                    backgroundImage: `url(${background.src})`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'auto',
+                    backgroundRepeat: 'repeat',
+                }}
+            ></div>
         <Header />
         <div className="grid grid-cols-3 grid-rows-[48px_1fr] gap-y-8 gap-x-16 w-full px-40 pt-28 pb-[72px] h-full">
             <div className="col-span-3 row-start-1 h-full flex items-center justify-start">
@@ -144,38 +152,31 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                     </div>
                 </Card>
                 <div className="flex flex-col space-y-4 w-full">
-                    <Button className="w-full justify-between"
-                    onClick={handlePlayersToggle}>
+                    <Button className="w-full justify-between" onClick={handlePlayersToggle}>
                         <div className="flex items-center gap-x-6">
                             <CircleUserRound className="h-5" />
                             Fichas dos Personagens
                         </div>
                     </Button>
-                    <Button className="w-full justify-between"
-                        onClick={handleJournalToggle}>
+                    <Button className="w-full justify-between" onClick={handleJournalToggle}>
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <NotebookPen className="h-5 text-[#191919]" />
                             Livro de Anotações
                         </div>
                     </Button>
-                    <Button className="w-full justify-between"
-                        onClick={handleRolesToggle}>
+                    <Button className="w-full justify-between" onClick={handleRolesToggle}>
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <BookMarked className="h-5 text-[#191919]" />
                             Livros de Regra
                         </div>
                     </Button>
-                    <Button className="w-full justify-between"
-                        onClick={handleDiceToggle} // Altera o estado de visibilidade dos dados
-                    >
+                    <Button className="w-full justify-between" onClick={handleDiceToggle}>
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <Dices className="h-5 text-[#191919]" />
                             Rolar Dados
                         </div>
                     </Button>
-                    <Button className="w-full justify-between"
-                        onClick={handleChatBotToggle} // Altera o estado de visibilidade do ChatBot
-                    >
+                    <Button className="w-full justify-between" onClick={handleChatBotToggle}>
                         <div className="flex items-center gap-x-6 text-[#191919]">
                             <Bot className="h-5 text-[#191919]" />
                             Chatbot
@@ -184,11 +185,11 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                 </div>
             </div>
             <CampaignPanel className="col-span-2">
-                {isRolesVisible && <PdfReader master={isUserMaster(campaign, session.data?.user?.id || '')}/>}
-                {isChatBotVisible && <ChatBot isMaster={true}/>}
                 {isPlayersVisible && <PlayerList code={code} />}
                 {isJournalVisible && <RichTextEditor />}
+                {isRolesVisible && <PdfReader master={isUserMaster(campaign, session.data?.user?.id || '')} />}
                 {isDiceVisible && <RollDice />}
+                {isChatBotVisible && <ChatBot isMaster={true} />}
             </CampaignPanel>
         </div>
         </div>
