@@ -91,7 +91,7 @@ export default function CampaignPlayer({ params }: { params: { code: string } })
         }
     }, [session.status, code]);
 
-    if (loading) {
+    if (loading || !campaign) {
         return <div>Carregando...</div>;
     }
 
