@@ -88,7 +88,7 @@ export default function CampaignMaster({ params }: { params: { code: string } })
         setIsChatBotVisible(prev => !prev);
         setPlayersVisible(false);
         setIsDiceVisible(false); 
-                setRolesVisible(false);
+        setRolesVisible(false);
         setJournalVisible(false);
     };
 
@@ -185,11 +185,11 @@ export default function CampaignMaster({ params }: { params: { code: string } })
                 </div>
             </div>
             <CampaignPanel className="col-span-2">
-                {isRolesVisible && <PdfReader master={isUserMaster(campaign, session.data?.user?.id || '')} />}
-                {isChatBotVisible && <ChatBot isMaster={true} />}
                 {isPlayersVisible && <PlayerList code={code} />}
                 {isJournalVisible && <RichTextEditor />}
+                {isRolesVisible && <PdfReader master={isUserMaster(campaign, session.data?.user?.id || '')} />}
                 {isDiceVisible && <RollDice />}
+                {isChatBotVisible && <ChatBot isMaster={true} />}
             </CampaignPanel>
         </div>
         </div>

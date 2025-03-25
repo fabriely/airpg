@@ -61,7 +61,7 @@ const ModalLogin: FC<ModalLoginProps> = ({ isOpen, onClose }) => {
     };
 
   return (
-    <div className="fixed inset-0 flex justify-end items-center z-50 px-40">
+    <div className="fixed inset-0 flex justify-end items-center z-40 px-40">
       <Card className="w-full max-w-sm px-4 py-6 bg-white relative">
         <CardHeader>
           <CardTitle className="font-crimson text-3xl flex justify-center">Login</CardTitle>

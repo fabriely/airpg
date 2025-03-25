@@ -71,11 +71,7 @@ const ChatBot = React.forwardRef<HTMLDivElement, ChatBotProps>(
     };
 
     return (
-      <CampaignPanel 
-        ref={ref}
-        className={cn("flex flex-col max-h-[550px] w-full", className)}
-        {...props}
-      >
+      <div className="flex flex-col max-h-[606px] w-full h-full">
         {/* Dropdown de seleção, exibido apenas se o jogador for mestre */}
         {isMaster && (
           <div className="relative w-full mb-4">
@@ -130,7 +126,7 @@ const ChatBot = React.forwardRef<HTMLDivElement, ChatBotProps>(
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Digite sua mensagem"
-            className="resize-none flex-1 bg-[#e3e3e3] pr-12 rounded-lg outline-none focus:ring-0 resize-none"
+            className="resize-none flex-1 bg-[#e3e3e3] pr-12 rounded-lg outline-none focus:ring-0"
             onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
           />
 
@@ -141,7 +137,7 @@ const ChatBot = React.forwardRef<HTMLDivElement, ChatBotProps>(
             <Send className="w-5 h-5 text-white" />
           </Button>
         </div>
-      </CampaignPanel>
+      </div>
     );
   }
 );

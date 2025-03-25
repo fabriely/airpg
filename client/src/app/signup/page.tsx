@@ -18,6 +18,7 @@ import { Label } from 'components/ui/label';
 import api from 'services/api';
 import { verifyExistingEmail } from 'services/verifyExistingEmail';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import background from 'assets/background.svg';
 
 export default function Login() {
   const router = useRouter();
@@ -99,7 +100,16 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-1 flex-col h-full justify-around items-center bg-[#F2F2F2] text-black">
+    <div className="flex flex-1 flex-col h-full justify-around items-center text-black">
+      <div
+        className="absolute top-0 left-0 w-full h-full -z-10"
+        style={{
+            backgroundImage: `url(${background.src})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'auto',
+            backgroundRepeat: 'repeat',
+        }}
+      ></div>
       <Header />
       <Card className="mt-[80px] w-full max-w-sm bg-white shadow-2xl">
         <CardHeader className='text-center'>

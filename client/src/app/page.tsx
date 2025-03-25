@@ -11,7 +11,7 @@ export default function Home() {
         className="absolute -z-10"
         style={{
           position: 'absolute',
-          top: 0,
+          top: '64px',
           right: 0,
           height: '116vh',         
           width: '116vw',

@@ -84,14 +84,14 @@ const ModalJoinCampaign: FC<ModalProps> = ({ isOpen, closeModal, userEmail }) =>
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <Card className="w-full max-w-xl border-0 bg-white relative">
-                <button onClick={closeModal} className="absolute top-2 right-2 text-black text-2xl font-bold">
+            <Card className="w-full max-w-sm border-0 bg-white relative">
+                <button onClick={closeModal} className="absolute top-2 right-4 text-[#191919] text-2xl font-bold">
                     &times;
                 </button>
 
                 <form onSubmit={step === 1 ? handleValidateCode : handleJoinCampaign} className="flex flex-col items-center">
                     <CardHeader>
-                        <CardTitle className="text-2xl text-black font-crimson">Entrar Em Uma Campanha</CardTitle>
+                        <CardTitle className="text-2xl text-[#191919] font-crimson">Entrar em Campanha</CardTitle>
                     </CardHeader>
 
                     <CardContent className="grid gap-4 w-full">
@@ -100,12 +100,12 @@ const ModalJoinCampaign: FC<ModalProps> = ({ isOpen, closeModal, userEmail }) =>
                                 <div className="grid gap-2 w-full text-center">
                                     <Label 
                                     htmlFor="code" 
-                                    className="text-black font-crimson font-normal text-base">Código da Campanha</Label>
+                                    className="text-[#191919] font-crimson text-xl">Código da Campanha</Label>
                                     <Input 
-                                    id="code" 
+                                    id="code"
                                     value={code} 
                                     onChange={(e) => setCode(e.target.value)} 
-                                    placeholder="WHa00d"                                   
+                                    placeholder="aBc123"
                                     className="w-48 h-9 rounded-lg font-medium transition-colors bg-gray-200 text-zinc-900 px-4 py-2 mx-auto focus:ring-0 focus:border-transparent" 
                                     />
                                 </div>
@@ -115,7 +115,7 @@ const ModalJoinCampaign: FC<ModalProps> = ({ isOpen, closeModal, userEmail }) =>
                                 <div className="grid gap-2 w-full text-center">
                                     <Label 
                                     htmlFor="characterName"
-                                    className="text-black font-crimson font-normal text-base">Nome do Personagem</Label>
+                                    className="text-[#191919] font-crimson text-xl">Nome do Personagem</Label>
                                     <Input 
                                     id="characterName" 
                                     value={characterName} 
@@ -126,7 +126,9 @@ const ModalJoinCampaign: FC<ModalProps> = ({ isOpen, closeModal, userEmail }) =>
                                 </div>
 
                                 <div className="grid gap-2 w-full text-center">
-                                    <Label htmlFor="characterClass">Classe do Personagem</Label>
+                                    <Label 
+                                    htmlFor="characterClass"
+                                    className="text-[#191919] font-crimson text-xl">Classe do Personagem</Label>
                                     <Input 
                                     id="characterClass" 
                                     value={characterClass} 

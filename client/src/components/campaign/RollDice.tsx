@@ -99,11 +99,7 @@ const RollDice = React.forwardRef<
     };
 
     return (
-        <CampaignPanel
-            ref={ref}
-            className="flex flex-col max-h-[550px] w-full space-y-4"
-            {...props}
-        >
+        <div className="flex flex-col max-h-[606px] w-full h-full space-y-4">
             <div className="flex items-center space-x-8 space-y-4 align-middle justify-center -mt-8">
                 <div className="flex items-center space-x-6">
                     <Label className="font-crimson font-bold text-[16px] md:text-[20px] text-[#F2F2F2] mt-4">Dado:</Label>
@@ -216,7 +212,7 @@ const RollDice = React.forwardRef<
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col p-4 bg-[#e3e3e3] mb-4 rounded-lg min-w-0 min-h-[400px] gap-4">
+            <div className="flex flex-col p-4 bg-[#e3e3e3] mb-4 rounded-lg min-w-0 min-h-[400px] h-full gap-4">
                 {rollsChosen.map((roll, index) => (
                     <div
                         key={index}
@@ -259,7 +255,7 @@ const RollDice = React.forwardRef<
                 > Adicionar
                 </Button>
             </div>
-        </CampaignPanel>
+        </div>
     );
 });
 
