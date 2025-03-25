@@ -2,15 +2,11 @@
 
 import * as React from 'react';
 import { useState } from 'react';
-import { CampaignPanel } from 'components/campaign/CampaignPanel';
 import { Label } from 'components/ui/label';
 import { Input } from 'components/ui/input';
 import { Button } from 'components/ui/button';
 
-const RollDice = React.forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ ...props }, ref) => {
+const RollDice: React.FC = () => {
     const [diceQnt, setDiceQnt] = useState<string>('1');
     const [diceSides, setDiceSides] = useState(20);
     const [bonus, setBonus] = useState<string>('0');
@@ -257,7 +253,7 @@ const RollDice = React.forwardRef<
             </div>
         </div>
     );
-});
+};
 
 RollDice.displayName = "RollDice";
 export { RollDice };

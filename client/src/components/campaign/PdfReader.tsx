@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from 'react';
+import React from 'react';
 import * as pdfjsLib from 'pdfjs-dist';
 import { Worker } from '@react-pdf-viewer/core';
 import { Viewer } from '@react-pdf-viewer/core';
@@ -28,27 +28,23 @@ interface PdfReaderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const PdfReader = React.forwardRef<HTMLDivElement, PdfReaderProps>(
-  ({ className, master = false, ...props }, ref) => {
+  ({ master = false, ...props }, ref) => {
     const [selectedPdf, setSelectedPdf] = React.useState<PdfOption>({
       label: "Player's Handbook",
       value: 'Player',
     });
-    console.log(master);
+  console.log(master);
 
     const fileUrl = master ? `/pdf/${selectedPdf.value}.pdf` : '/pdf/Player.pdf';
 
-    const renderToolbar = (Toolbar: React.ComponentType<ToolbarProps>) => (
-      <>
-        <Toolbar />
-      </>
-    );
-
+    // Render the toolbar using the provided Toolbar component
+    const renderToolbar = (Toolbar: React.ComponentType<ToolbarProps>) => <Toolbar />;
     const defaultLayoutPluginInstance = defaultLayoutPlugin({
       renderToolbar,
     });
 
     return (
-      <div className="flex flex-col items-center max-h-[606px] h-full p-1 gap-16">
+      <div ref={ref} className="flex flex-col items-center max-h-[606px] h-full p-1 gap-16" {...props}>
         <div className="w-full h-full overflow mb-2 relative">
           {master ? (
             <div className="absolute top-[48px] right-[24px] z-10">
