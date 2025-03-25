@@ -19,12 +19,11 @@ system_prompt = (
 
 def wiki_image(text: str) -> str:
     
-    # Criar um prompt adequado para a OpenAI
     final_prompt = f"{system_prompt}\nUsuário: {text}"
 
     response = client.images.generate(
         model="dall-e-3",
-        prompt=final_prompt,  # Aqui está a correção
+        prompt=final_prompt, 
         size="1024x1024",
         quality="standard",
         n=1,
