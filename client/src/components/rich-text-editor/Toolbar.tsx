@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND } from 'lexical';
+import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND, TextFormatType } from 'lexical';
 import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND } from '@lexical/list';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -30,7 +30,7 @@ const ToolbarPlugin: React.FC = () => {
     });
   }, [editor]);
 
-  const toggleFormat = (formatType: string) => {
+  const toggleFormat = (formatType: TextFormatType) => {
     editor.update(() => {
       const selection = $getSelection();
       if ($isRangeSelection(selection)) {
