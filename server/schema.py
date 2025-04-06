@@ -64,4 +64,23 @@ class ValidateCampaign(BaseModel):
     user_email: str
 
 
-
+class CharacterCreate(BaseModel):
+    character_name: str
+    character_class: str
+    background: str
+    raceSize: str
+    alignment: str
+    experience_points: Optional[int] = 0
+    strength: Optional[int] = 0
+    dexterity: Optional[int] = 0
+    constitution: Optional[int] = 0
+    intelligence: Optional[int] = 0
+    wisdom: Optional[int] = 0
+    charisma: Optional[int] = 0
+    initiative: Optional[int] = 0
+    hit_points: Optional[int] = 0
+    temporary_hit_points: Optional[int] = 0
+    weapons: Optional[int] = 0
+    armor: Optional[int] = 0
+    is_master: Optional[int] = 0
+    is_player: Optional[int] = 1

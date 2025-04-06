@@ -25,6 +25,7 @@ app.add_middleware(
 # Include Routers
 app.include_router(users.router)
 app.include_router(campaigns.router)
+app.include_router(characters.router)
 
 @app.get("/")
 async def read_root():
